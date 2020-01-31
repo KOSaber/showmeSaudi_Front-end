@@ -14,7 +14,7 @@ import {
 import Home from './Home'
 import Packages from './Packages'
 import Contact from './Contact'
-import TourGuy from './TourGuy'
+import TourGuys from './TourGuys'
 import SignIn from './SignIn'
 import About from './About'
 import SignUp from './SignUp'
@@ -58,7 +58,7 @@ class NavbarMain extends React.Component {
 
        <Container>
           <NavbarBrand> <Link to="/" className="NavLink">Home</Link> </NavbarBrand>
-          <NavbarBrand> <Link to="/TourGuy" className="NavLink">Tour Guys</Link> </NavbarBrand>
+          <NavbarBrand> <Link to="/TourGuys" className="NavLink">Tour Guys</Link> </NavbarBrand>
           <NavbarBrand> <Link to="/Packages" className="NavLink">Packages</Link> </NavbarBrand>
           <NavbarBrand> <Link to="/SignIn" className="NavLink">Sign In</Link> </NavbarBrand>
           <NavbarBrand> <Link to="/About" className="NavLink">About Us</Link> </NavbarBrand>
@@ -71,7 +71,7 @@ class NavbarMain extends React.Component {
 
         <div>
         <Route exact path="/" component={Home} />
-        <Route path="/TourGuy/:id" component={TourGuy} />
+        <Route path="/TourGuys" component={TourGuys} />
         <Route path="/Packages" component={Packages} />
         <Route path="/SignIn" component={SignIn} />
         <Route path="/About" component={About} />
