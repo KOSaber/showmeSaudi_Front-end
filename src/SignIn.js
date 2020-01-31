@@ -15,28 +15,28 @@ import jwt_decode from 'jwt-decode'
 
 class SignIn extends Component {
   state={
-    status: true,
+    status: false,
     api:"http://localhost:7000/api/r-login"
 }
-rInfo(e){
+tInfo(e){
     // e.preventDefault()
     console.log(this.state.api+"this.state.api")
 
-    this.setState({api:"http://localhost:7000/api/r-login"})
+    this.setState({api:"http://localhost:7000/api/t-login"})
   }
-tInfo(e){
+rInfo(e){
     // e.preventDefault()   
      console.log(this.state.api+"this.state.api")
 
-    this.setState({api:"http://localhost:7000/api/t-login"})
+    this.setState({api:"http://localhost:7000/api/r-login"})
   }
 handleChange(e) {
    this.setState({status: !this.state.status})
     if(!this.state.status){
-    this.rInfo(e);
+    this.tInfo(e);
   }
     else {
-      this.tInfo(e)
+      this.rInfo(e)
     }
   }
 
@@ -56,10 +56,11 @@ handleChange(e) {
     var user =  jwt_decode(res.data.token)
     console.log(user)
 
-      if(user.user.tourType=="regUser"){
-        this.props.history.push("./")
+      if(user.user.tourType==="regUser"){
+        this.props.history.push("./");
       }
       else{
+        console.log("Tour user");        
         this.props.history.push("./TourGuyProfile")
       }
       })

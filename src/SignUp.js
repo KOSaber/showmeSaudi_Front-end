@@ -25,7 +25,8 @@ class SignUp extends Component {
     }
     showInfo(e){
         // e.preventDefault()
-        this.setState({api:"http://localhost:7000/api/newTuser",moreInfo:<TourForm/>})
+        this.setState({api:"http://localhost:7000/api/newTuser"//,moreInfo:<TourForm onChange={this.handleOnChange}/>
+      })
     //console.log(this.state.api)
       }
     hideInfo(e){
@@ -116,6 +117,16 @@ class SignUp extends Component {
       </FormGroup>
       </Col>
       </Row>
+      <Col>
+      <FormGroup>
+                <Label for="exampleFile">Personal Picture</Label>
+                {/* <Input type="file" name="file" id="exampleFile" /> */}
+                <CustomInput method="post" action="upload" enctype="multipart/form-data" type="file" name="img" id="exampleFile" label="Please choose your Personal photo" onChange={this.changeTheStateForform}  />
+                {/* <FormText color="muted">
+                      Please choose your Personal photo ...
+                </FormText> */}
+            </FormGroup>
+            </Col>
       <Col>
         <FormGroup tag="fieldset">
         <Label>User Type : </Label>
