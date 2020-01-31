@@ -112,7 +112,8 @@ class TourGuys extends Component {
                     <Link to="/TourGuyProfile">{this.state.firstName[index]+" "+this.state.lastName[index]}</Link>
                     <Card.Body>{this.state.address[index]}</Card.Body>
                     <Card.Body>{this.state.price[index]}<img src={'https://pbs.twimg.com/media/EL4M2uIXsAAkx-f.png'} width="40" height="30" />Per 1 hour</Card.Body>
-                    {/* <Rater >{this.state.rate[index]}</Rater>total={5} rating={3} interactive={false} style={{cursor:'pointer'}} /> */}
+                    <Card.Body>{this.state.rate[index]}</Card.Body>
+                     {/* <Rater >{this.state.rate[index]}</Rater>total={5} rating={3} interactive={false} style={{cursor:'pointer'}} /> */}
                     </Card.Body>
                 </Card>
                     </div>    

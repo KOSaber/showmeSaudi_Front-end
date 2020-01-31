@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { MDBCol, MDBFormInline, MDBBtn,MDBInput,MDBIcon } from "mdbreact";
 import CityList from './CityList' 
+import axios from 'axios'
 
 
 
@@ -11,7 +12,6 @@ class Home extends Component{
 
   render() {
     return (
-    
       <div className="AllHome">
         <div className='ContainerHomeSearch'>
           <img className='HomeImg' src={'https://imcdn.org/uploads/2018/12/tantoura1.jpg'} width="100%" height="50%"/>
