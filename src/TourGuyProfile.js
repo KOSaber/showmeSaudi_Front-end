@@ -4,25 +4,71 @@ import guide from './DB' //Import the file where the data is stored.
 import {
   Link
 } from 'react-router-dom';
-import { Container, Row} from 'react-bootstrap/';
+import { Container, Row,Button} from 'react-bootstrap/';
 import Rater from 'react-rater';
+import axios from 'axios'
+import jwt_decode from 'jwt-decode'
+
 
 class TourGuyProfile  extends Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state={
       rate:  0,
-      raters: 0
+      raters: 0,
+      firstName:"",
+      lastName: "",
+      address:"",
+      img:"",
+      rate:"",
+      price:"",
+      AboutMe:"",
+      id:this.props.match.params.id
     }
   }
+
+  componentDidMount() {
+    axios.get(`http://localhost:7000/api/t-user/`+this.props.match.params.id)
+      .then(response => {
+        console.log(response);
+          this.setState({firstName: response.data.firstName})
+          this.setState({lastName: response.data.lastName} )
+          this.setState({address: response.data.address})
+          this.setState({img: response.data.img} )
+          this.setState({rate: response.data.rate} )
+          this.setState({price: response.data.price} )
+          this.setState({AboutMe: response.data.AboutMe} )
+          this.setState({id: response.data._id} )
+      });
+  }
+
+  onsubmitTheStateToBook = ()=>{
+    axios.post("http://localhost:7000/api/r-booking/"+this.state.id,this.state)
+    .then(
+      (res) =>{ 
+        console.log(res)
+    var user =  jwt_decode(res.data.token)
+    console.log(user)
+
+      if(user.user.tourType==="regUser"){
+        this.props.history.push("./");
+      }
+      else{
+        console.log("Tour user");        
+        this.props.history.push("./TourGuyProfile")
+      }
+      })
+    .catch(err => console.log(err))
+  }
+
   showRate(e){
   if(this.state.rate/this.state.raters > 0)
   return (<h6>{ parseFloat(this.state.rate/this.state.raters).toFixed(1) } Stars</h6>)
 }
 
   render() {
-    console.log(this.state.rate);
-      console.log(this.state.raters);
+    // console.log(this.state.rate);
+    //   console.log(this.state.raters);
     const AllPackages=guide.map((item, index) => {
 
           
@@ -51,14 +97,16 @@ class TourGuyProfile  extends Component {
           {/* Heading Row */}
           <div className="row align-items-center my-5">
             <div className="col-lg-7">
-              <img className="img-fluid rounded mb-4 mb-lg-0" src="https://images.squarespace-cdn.com/content/v1/5ca3511f11f78419cf065b0a/1555516093588-GQVMGCVN8RXPIS4KK2QF/ke17ZwdGBToddI8pDm48kLkXF2pIyv_F2eUT9F60jBl7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0iyqMbMesKd95J-X4EagrgU9L3Sa3U8cogeb0tjXbfawd0urKshkc5MgdBeJmALQKw/Lucy+Palette12071600023_t1.jpg" alt="" />
+              <img className="img-fluid rounded mb-4 mb-lg-0" src={this.state.img} alt="" />
             </div>
             {/* /.col-lg-8 */}
             <div className="col-lg-5">
-              <h1 className="font-weight-light">Tour Guy Name</h1>
-              <p>Tour guy brand statement and description.. Tour guy brand statement and description..Tour guy brand statement and description..Tour guy brand statement and description</p>
+              <h1 className="font-weight-light">{this.state.firstName+" "+this.state.lastName}</h1>
+              <p>{this.state.AboutMe}</p>
               <Rater total={5} rating={this.state.rate/this.state.raters} style={{cursor:'pointer'}} onRate={(rating)=>{this.setState((prev)=>({raters: prev.raters +1, rate: rating.rating + prev.rate}));}} /> 
                        {this.showRate()}
+
+              <div><Button onClick ={this.onsubmitTheStateToBook} > Booking</Button></div>
             </div>
             {/* /.col-md-4 */}
           </div>
@@ -87,6 +135,7 @@ class TourGuyProfile  extends Component {
       </div>
     </div>
   );}
+  
 };
 
 export default TourGuyProfile;
