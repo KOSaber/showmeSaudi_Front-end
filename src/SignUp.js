@@ -122,11 +122,11 @@ class SignUp extends Component {
       <FormGroup>
                 <Label for="exampleFile">Personal Picture</Label>
                 {/* <Input type="file" name="file" id="exampleFile" /> */}
-                {/* <CustomInput method="post" action="/upload" enctype="multipart/form-data" type="file" name="img" id="exampleFile" label="Please choose your Personal photo" onChange={this.changeTheStateForform}  /> */}
+                <CustomInput method="post" action="/upload" enctype="multipart/form-data" type="file" name="img" id="exampleFile" label="Please choose your Personal photo" onChange={this.changeTheStateForform}  />
                 {/* <FormText color="muted">
                       Please choose your Personal photo ...
                 </FormText> */}
-                <FileUpload onClick ={this.onsubmitTheStateToPosted}/>
+                <FileUpload method="post" action="/upload" enctype="multipart/form-data" type="file" name="img" id="exampleFile" label="Please choose your Personal photo" onChange={this.changeTheStateForform}/>
 
             </FormGroup>
             </Col>

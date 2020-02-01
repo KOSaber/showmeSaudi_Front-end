@@ -31,7 +31,7 @@ class TourGuyProfile  extends Component {
 
     axios.get(`http://localhost:7000/api/t-user/`+this.props.match.params.id)
       .then(response => {
-        console.log(response);
+        //console.log(response);
           this.setState({firstName: response.data.firstName})
           this.setState({lastName: response.data.lastName} )
           this.setState({address: response.data.address})
@@ -48,16 +48,6 @@ class TourGuyProfile  extends Component {
     .then(
       (res) =>{ 
         console.log(res)
-    var user =  jwt_decode(res.data.token)
-    console.log(user)
-
-      if(user.user.tourType==="regUser"){
-        this.props.history.push("./");
-      }
-      else{
-        console.log("Tour user");        
-        this.props.history.push("./TourGuyProfile")
-      }
       })
     .catch(err => console.log(err))
   }
