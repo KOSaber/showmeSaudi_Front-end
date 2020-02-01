@@ -28,6 +28,7 @@ class TourGuyProfile  extends Component {
   }
 
   componentDidMount() {
+
     axios.get(`http://localhost:7000/api/t-user/`+this.props.match.params.id)
       .then(response => {
         console.log(response);
@@ -105,6 +106,7 @@ class TourGuyProfile  extends Component {
               <p>{this.state.AboutMe}</p>
               <Rater total={5} rating={this.state.rate/this.state.raters} style={{cursor:'pointer'}} onRate={(rating)=>{this.setState((prev)=>({raters: prev.raters +1, rate: rating.rating + prev.rate}));}} /> 
                        {this.showRate()}
+                       
 
               <div><Button onClick ={this.onsubmitTheStateToBook} > Booking</Button></div>
             </div>
