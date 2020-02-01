@@ -4,22 +4,22 @@ import {
   NavbarBrand,
   Container,
 } from "reactstrap";
-import "../src/App.css";
+import "../App.css";
 import {
   BrowserRouter as Router,
   Route,
   Link
 } from 'react-router-dom';
 
-import Home from './Home'
-import Packages from './Packages'
-import Contact from './Contact'
-import TourGuys from './TourGuys'
-import SignIn from './SignIn'
-import About from './About'
-import SignUp from './SignUp'
-import TourGuyProfile from './TourGuyProfile'
-import Comment from './Comment'
+import Home from '../containers/Home'
+import Packages from '../containers/Packages'
+import Contact from '../containers/Contact'
+import TourGuys from '../containers/TourGuys'
+import SignIn from '../Register/SignIn'
+import About from '../containers/About'
+import SignUp from '../Register/SignUp'
+import TourGuyProfile from '../containers/TourGuyProfile'
+import Comment from '../components/Footer'
 
 
 

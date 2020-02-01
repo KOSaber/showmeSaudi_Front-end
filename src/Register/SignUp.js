@@ -1,6 +1,6 @@
-import guide from './DB' //Import the file where the data is stored.
+import guide from '../DB' //Import the file where the data is stored.
 import React, { Component } from 'react';
-import TourForm from './TourForm'
+import TourForm from '../Register/TourForm'
 import {
   Container,CustomInput, Col,Row, Form,FormText,
   FormGroup, Label, Input,
@@ -9,7 +9,7 @@ import {
 import {
     Link
    } from 'react-router-dom';
-import './App.css';
+import '../App.css';
 import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
 import { render } from "react-dom";

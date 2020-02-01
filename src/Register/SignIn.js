@@ -1,16 +1,14 @@
-//import React from 'react';
-import guide from './DB' //Import the file where the data is stored.
 import React, { Component } from 'react';
 import {
-  Container,CustomInput, Col,Row, Form,FormText,
+  Container,CustomInput, Col, Form,
   FormGroup, Label, Input,
   Button
 } from 'reactstrap';
 import {
- Link, Redirect
+ Link
 } from 'react-router-dom';
 import axios from 'axios'
-import './App.css';
+import '../App.css';
 import jwt_decode from 'jwt-decode'
 
 class SignIn extends Component {
