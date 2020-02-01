@@ -18,6 +18,7 @@ class TourGuys extends Component {
         img:[],
         rate:[],
         price:[],
+        id:[],
           //city: this.props.match.params.id
         }
     }
@@ -26,15 +27,15 @@ class TourGuys extends Component {
           .then(res => {
     
             for(let i in res.data){
-                 this.setState({firstName: this.state.firstName.concat(res.data[i].firstName)})
-                 this.setState({lastName: this.state.lastName.concat(res.data[i].lastName)} )
-                  this.setState({address: this.state.address.concat(res.data[i].address)})
-                  this.setState({img: this.state.img.concat(res.data[i].img)} )
-                  this.setState({rate: this.state.rate.concat(res.data[i].rate)} )
-                  this.setState({price: this.state.price.concat(res.data[i].price)} )
-           
+                this.setState({firstName: this.state.firstName.concat(res.data[i].firstName)})
+                this.setState({lastName: this.state.lastName.concat(res.data[i].lastName)} )
+                this.setState({address: this.state.address.concat(res.data[i].address)})
+                this.setState({img: this.state.img.concat(res.data[i].img)} )
+                this.setState({rate: this.state.rate.concat(res.data[i].rate)} )
+                this.setState({price: this.state.price.concat(res.data[i].price)} )
+                this.setState({id: this.state.id.concat(res.data[i]._id)} )
             }
-            console.log(res)
+            //console.log(res)
           })
           .catch((error) => {
             console.log(error)
@@ -109,7 +110,7 @@ class TourGuys extends Component {
                     <Card.Body>
                     {/* {item.city} */}
                     <span></span>
-                    <Link to="/TourGuyProfile">{this.state.firstName[index]+" "+this.state.lastName[index]}</Link>
+                    <Link to={"/TourGuyProfile/"+ this.state.id[index]}>{this.state.firstName[index]+" "+this.state.lastName[index]}</Link>
                     <Card.Body>{this.state.address[index]}</Card.Body>
                     <Card.Body>{this.state.price[index]}<img src={'https://pbs.twimg.com/media/EL4M2uIXsAAkx-f.png'} width="40" height="30" />Per 1 hour</Card.Body>
                     <Card.Body>{this.state.rate[index]}</Card.Body>
