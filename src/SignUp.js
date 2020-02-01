@@ -15,6 +15,7 @@ import PhoneInput from 'react-phone-number-input';
 import { render } from "react-dom";
 import ReactPhoneInput from "react-phone-input-2";
 import axios from 'axios'
+import FileUpload from './FileUpload';
 
 class SignUp extends Component {
     state={
@@ -122,9 +123,11 @@ class SignUp extends Component {
                 <Label for="exampleFile">Personal Picture</Label>
                 {/* <Input type="file" name="file" id="exampleFile" /> */}
                 <CustomInput method="post" action="/upload" enctype="multipart/form-data" type="file" name="img" id="exampleFile" label="Please choose your Personal photo" onChange={this.changeTheStateForform}  />
-                 {/* <FormText color="muted">
+                {/* <FormText color="muted">
                       Please choose your Personal photo ...
                 </FormText> */}
+                <FileUpload method="post" action="/upload" enctype="multipart/form-data" type="file" name="img" id="exampleFile" label="Please choose your Personal photo" onChange={this.changeTheStateForform}/>
+
             </FormGroup>
             </Col>
       <Col>
