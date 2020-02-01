@@ -44,10 +44,16 @@ class TourGuyProfile  extends Component {
   }
 
   onsubmitTheStateToBook = ()=>{
+    var x=localStorage.getItem('usertoken');
+    var user =  jwt_decode(x)
+    //we need to pass this for r-booking
+    console.log(user.user._id)
+
     axios.post("http://localhost:7000/api/r-booking/"+this.state.id,this.state)
     .then(
       (res) =>{ 
         console.log(res)
+        
       })
     .catch(err => console.log(err))
   }
