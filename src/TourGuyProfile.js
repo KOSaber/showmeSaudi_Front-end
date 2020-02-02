@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import { Card } from 'react-bootstrap/';
 import guide from './DB' //Import the file where the data is stored.
-import {
-  Link
-} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import { Container, Row,Button} from 'react-bootstrap/';
 import Rater from 'react-rater';
 import axios from 'axios'
 import Booking from './Booking';
 import jwt_decode from 'jwt-decode';
+
+import Calendar from './Calendar';
+import React from "react";
 import DatePicker from "react-datepicker";
- 
 import "react-datepicker/dist/react-datepicker.css";
- 
+
 
 class TourGuyProfile  extends Component {
   constructor(props){
@@ -27,8 +27,10 @@ class TourGuyProfile  extends Component {
       rate:"",
       price:"",
       AboutMe:"",
+ 
       id:this.props.match.params.id,
       startDate: new Date()
+
     }
   }
 
@@ -80,6 +82,11 @@ class TourGuyProfile  extends Component {
   if(this.state.rate/this.state.raters > 0)
   return (<h6>{ parseFloat(this.state.rate/this.state.raters).toFixed(1) } Stars</h6>)
 }
+handleChange = date => {
+  this.setState({
+    startDate: date
+  });
+};
 
   render() {
     // console.log(this.state.rate);
@@ -126,6 +133,7 @@ class TourGuyProfile  extends Component {
         selected={this.state.startDate}
         onChange={this.handleChange} 
         />
+
               <div><Button onClick ={this.onsubmitTheStateToBook}  size="sm" > Book </Button></div>
             </div>
             {/* /.col-md-4 */}
