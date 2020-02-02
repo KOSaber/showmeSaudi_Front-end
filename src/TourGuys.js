@@ -22,6 +22,8 @@ class TourGuys extends Component {
         // city: this.props.displayItem
         }
     }
+
+
     componentDidMount() {
      this.setState({city: this.props.match.params.city})
 //      console.log(this.state.city)
@@ -29,6 +31,7 @@ class TourGuys extends Component {
   //      console.log("outside tour guys in city")
         axios.get("http://localhost:7000/api/t-users") 
         .then(res => {
+
           for(let i in res.data){
               this.setState({firstName: this.state.firstName.concat(res.data[i].firstName)})
               this.setState({lastName: this.state.lastName.concat(res.data[i].lastName)} )
@@ -66,6 +69,7 @@ class TourGuys extends Component {
             console.log(error)
           })
       }}
+
     render() {
         return(
             <div>
