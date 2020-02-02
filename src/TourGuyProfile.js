@@ -7,6 +7,7 @@ import {
 import { Container, Row,Button} from 'react-bootstrap/';
 import Rater from 'react-rater';
 import axios from 'axios'
+import Booking from './Booking';
 import jwt_decode from 'jwt-decode';
 import Calendar from './Calendar';
 
@@ -29,9 +30,10 @@ class TourGuyProfile  extends Component {
   }
 
   componentDidMount() {
+{/* <Booking></Booking> */}
     axios.get(`http://localhost:7000/api/t-user/`+this.props.match.params.id)
       .then(response => {
-        console.log(response);
+        //console.log(response);
           this.setState({firstName: response.data.firstName})
           this.setState({lastName: response.data.lastName} )
           this.setState({address: response.data.address})
@@ -44,20 +46,16 @@ class TourGuyProfile  extends Component {
   }
 
   onsubmitTheStateToBook = ()=>{
-    axios.post("http://localhost:7000/api/r-booking/"+this.state.id,this.state)
+
+    var x=localStorage.getItem('usertoken');
+    var user =  jwt_decode(x)
+    //we need to pass this for r-booking
+    console.log(user.user._id)
+    axios.post("http://localhost:7000/api/r-booking/"+this.state.id+"/"+user.user._id,this.state)
     .then(
       (res) =>{ 
         console.log(res)
-    var user =  jwt_decode(res.data.token)
-    console.log(user)
-
-      if(user.user.tourType==="regUser"){
-        this.props.history.push("./");
-      }
-      else{
-        console.log("Tour user");        
-        this.props.history.push("./TourGuyProfile")
-      }
+        
       })
     .catch(err => console.log(err))
   }
@@ -106,6 +104,8 @@ class TourGuyProfile  extends Component {
               <p>{this.state.AboutMe}</p>
               <Rater total={5} rating={this.state.rate/this.state.raters} style={{cursor:'pointer'}} onRate={(rating)=>{this.setState((prev)=>({raters: prev.raters +1, rate: rating.rating + prev.rate}));}} /> 
                        {this.showRate()}
+                       
+
               <br/><Calendar/>
               <div><Button onClick ={this.onsubmitTheStateToBook}  size="sm" > Book </Button></div>
             </div>

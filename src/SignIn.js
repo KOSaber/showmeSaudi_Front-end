@@ -41,6 +41,7 @@ handleChange(e) {
   }
 
   changeTheStateForform = (e)=>{
+    
     this.setState({
       [e.target.name] : e.target.value
     })
@@ -52,7 +53,7 @@ handleChange(e) {
     .then(
       (res) =>{ 
         console.log(res)
-      localStorage.setItem('usertoken' , res.data.token)
+    localStorage.setItem('usertoken' , res.data.token)
     var user =  jwt_decode(res.data.token)
     console.log(user)
 
@@ -60,7 +61,6 @@ handleChange(e) {
         this.props.history.push("./");
       }
       else{
-        console.log("Tour user");        
         this.props.history.push("./TourGuyProfile/"+user.user._id)
       }
       })
