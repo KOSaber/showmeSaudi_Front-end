@@ -4,17 +4,20 @@ import TourForm from './TourForm'
 import {
   Container,CustomInput, Col,Row, Form,FormText,
   FormGroup, Label, Input,
-  Button
+  Button,DropdownButton,Dropdown,InputGroupButtonDropdown,
+  InputGroupDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
 } from 'reactstrap';
 import {
     Link
    } from 'react-router-dom';
 import './App.css';
 import 'react-phone-number-input/style.css';
-import PhoneInput from 'react-phone-number-input';
-import { render } from "react-dom";
 import ReactPhoneInput from "react-phone-input-2";
 import axios from 'axios'
+import { Right } from 'react-bootstrap/lib/Media';
 
 class SignUp extends Component {
     state={
@@ -118,6 +121,16 @@ class SignUp extends Component {
       </Col>
       </Row>
       <Col>
+      {/* <FormGroup>
+        <DropdownButton id="dropdown-basic-button" title="City :" drop={Right}>
+          <Dropdown.Item href="#/action-1">Jeddah</Dropdown.Item>
+          <Dropdown.Item href="#/action-2">Riyadh</Dropdown.Item>
+          <Dropdown.Item href="#/action-3">Al-Khobar</Dropdown.Item>
+          <Dropdown.Item href="#/action-3">Al-Ola</Dropdown.Item>
+          <Dropdown.Item href="#/action-3">Abha</Dropdown.Item>
+          <Dropdown.Item href="#/action-3">Jazan</Dropdown.Item>
+        </DropdownButton>
+      </FormGroup> */}
       <FormGroup>
                 <Label for="exampleFile">Personal Picture</Label>
                 {/* <Input type="file" name="file" id="exampleFile" /> */}
