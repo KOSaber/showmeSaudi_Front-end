@@ -7,8 +7,9 @@ import {
 import { Container, Row,Button} from 'react-bootstrap/';
 import Rater from 'react-rater';
 import axios from 'axios'
-import jwt_decode from 'jwt-decode'
 import Booking from './Booking';
+import jwt_decode from 'jwt-decode';
+import Calendar from './Calendar';
 
 
 class TourGuyProfile  extends Component {
@@ -105,7 +106,8 @@ class TourGuyProfile  extends Component {
                        {this.showRate()}
                        
 
-              <div><Button onClick ={this.onsubmitTheStateToBook} > Booking</Button></div>
+              <br/><Calendar/>
+              <div><Button onClick ={this.onsubmitTheStateToBook}  size="sm" > Book </Button></div>
             </div>
             {/* /.col-md-4 */}
           </div>
