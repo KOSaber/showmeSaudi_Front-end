@@ -1,6 +1,6 @@
 import guide from '../DB' //Import the file where the data is stored.
 import React, { Component } from 'react';
-import TourForm from '../Register/TourForm'
+import SignIn from './SignIn'
 import {
   Container,CustomInput, Col,Row, Form,FormText,
   FormGroup, Label, Input,
@@ -20,6 +20,8 @@ class SignUp extends Component {
     state={
         moreInfo:"",
         status: false,
+        send: false,
+        userDate:[],
         phone: "",
         api:"http://localhost:7000/api/newRuser"
     }
@@ -60,12 +62,24 @@ class SignUp extends Component {
       onsubmitTheStateToPosted = ()=>{
 
         axios.post( this.state.api,this.state)
-        .then(res => console.log(res))
+        .then(res => 
+          {console.log(res)
+
+        this.setState({send:true})
+      
+      }
+      
+        
+    )
+        
         .catch(err => console.log(err))
       }
 
   render() {
     console.log(this.state)
+
+    if(!this.state.send)
+{
   return (
     <div >
       <br/><br/><br/><br/><br/>
@@ -148,12 +162,31 @@ class SignUp extends Component {
       </FormGroup>
       </Col>
       <Col>
-      <Button onClick ={this.onsubmitTheStateToPosted} > Submit</Button>
+      <Button onClick ={this.onsubmitTheStateToPosted} > Submit
+      {console.log(this.state.send)}
+      
+      </Button>
       <Link to="/SignIn"><Button className='log'>Sign In</Button></Link>
       </Col>
     </Form>
     </div>
   );
-}}
+      }
+      else{
+        return(
+          
+           // eslint-disable-next-line react/jsx-no-undef
+           
+           <SignIn />
+        
+       
+          
+        )
+      }
+}
+
+
+
+}
 
 export default SignUp;

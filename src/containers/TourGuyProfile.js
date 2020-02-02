@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Card } from 'react-bootstrap/';
+// import '../../node_modules/bulma/css/bulma.css'
 import guide from '../DB' //Import the file where the data is stored.
 import {
   Link
@@ -27,6 +28,7 @@ class TourGuyProfile  extends Component {
     }
   }
 
+
   componentDidMount() {
     axios.get(`http://localhost:7000/api/t-user/`+this.props.match.params.id)
       .then(response => {
@@ -39,16 +41,31 @@ class TourGuyProfile  extends Component {
           this.setState({price: response.data.price} )
           this.setState({AboutMe: response.data.AboutMe} )
           this.setState({id: response.data._id} )
-      });
+      }).catch((err)=> console.log("data has not been recived"));
+      // if()
+      // {
+
+      // }
+
   }
 
   onsubmitTheStateToBook = ()=>{
+    var x=localStorage.getItem('usertoken');
+    var user =  jwt_decode(x)
+    //we need to pass this for r-booking
+    console.log(user.user._id)
+
+
+
+
     axios.post("http://localhost:7000/api/r-booking/"+this.state.id,this.state)
     .then(
       (res) =>{ 
         console.log(res)
     var user =  jwt_decode(res.data.token)
     console.log(user)
+
+    
 
       if(user.user.tourType==="regUser"){
         this.props.history.push("./");
@@ -107,6 +124,7 @@ class TourGuyProfile  extends Component {
                        {this.showRate()}
 
               <div><Button onClick ={this.onsubmitTheStateToBook} > Booking</Button></div>
+              {/* <div className="media-right"><button className="button is-primary">Edit</button></div> */}
             </div>
             {/* /.col-md-4 */}
           </div>

@@ -59,7 +59,7 @@ handleChange(e) {
       }
       else{
         console.log("Tour user");        
-        this.props.history.push("./TourGuyProfile/"+user.user._id)
+        this.props.history.push("./TourGuyProfile/" + user.user._id)
       }
       })
     .catch(err => console.log(err))
