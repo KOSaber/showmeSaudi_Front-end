@@ -7,7 +7,9 @@ import {
 import { Container, Row,Button} from 'react-bootstrap/';
 import Rater from 'react-rater';
 import axios from 'axios'
-import jwt_decode from 'jwt-decode'
+import Booking from './Booking';
+import jwt_decode from 'jwt-decode';
+import Calendar from './Calendar';
 
 
 class TourGuyProfile  extends Component {
@@ -28,7 +30,7 @@ class TourGuyProfile  extends Component {
   }
 
   componentDidMount() {
-
+{/* <Booking></Booking> */}
     axios.get(`http://localhost:7000/api/t-user/`+this.props.match.params.id)
       .then(response => {
         //console.log(response);
@@ -44,12 +46,12 @@ class TourGuyProfile  extends Component {
   }
 
   onsubmitTheStateToBook = ()=>{
+
     var x=localStorage.getItem('usertoken');
     var user =  jwt_decode(x)
     //we need to pass this for r-booking
     console.log(user.user._id)
-
-    axios.post("http://localhost:7000/api/r-booking/"+this.state.id,this.state)
+    axios.post("http://localhost:7000/api/r-booking/"+this.state.id+"/"+user.user._id,this.state)
     .then(
       (res) =>{ 
         console.log(res)
@@ -104,7 +106,8 @@ class TourGuyProfile  extends Component {
                        {this.showRate()}
                        
 
-              <div><Button onClick ={this.onsubmitTheStateToBook} > Booking</Button></div>
+              <br/><Calendar/>
+              <div><Button onClick ={this.onsubmitTheStateToBook}  size="sm" > Book </Button></div>
             </div>
             {/* /.col-md-4 */}
           </div>
