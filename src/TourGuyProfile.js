@@ -1,20 +1,14 @@
 import React, { Component } from 'react';
 import guide from './DB' //Import the file where the data is stored.
-import {
-  Link
-} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import { Container, Row,Button, Card} from 'react-bootstrap/';
 import {Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import Rater from 'react-rater';
 import axios from 'axios'
-<<<<<<< HEAD
 import jwt_decode from 'jwt-decode'
 import Calendar from './Calendar'
-=======
-import Booking from './Booking';
-import jwt_decode from 'jwt-decode';
-import Calendar from './Calendar';
->>>>>>> 98cb1bd33b705fa2093cfaa261e5da816a488436
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 
 class TourGuyProfile  extends Component {
@@ -29,10 +23,33 @@ class TourGuyProfile  extends Component {
       img:"",
       rate:"",
       price:"",
-      AboutMe:"",      
+      AboutMe:"",
       comment: [] ,
-      id:this.props.match.params.id
+      id:this.props.match.params.id,
+      startDate: new Date()
+
     }
+  }
+
+  changeTheStateForform = (e)=>{
+    this.setState({
+      [e.target.name] : e.target.value
+    })
+  }
+
+  onsubmitTheStateToBook = ()=>{
+    var datetoB=this.state.startDate.toDateString();
+    var x=localStorage.getItem('usertoken');
+    var user =  jwt_decode(x)
+    //we need to pass this for r-booking
+    //console.log(datetoB)
+    axios.post("http://localhost:7000/api/r-booking/"+this.state.id+"/"+user.user._id+"/"+datetoB,this.state)
+    .then(
+      (res) =>{ 
+        console.log(res)
+        
+      })
+    .catch(err => console.log(err))
   }
 
   componentDidMount() {
@@ -51,30 +68,44 @@ class TourGuyProfile  extends Component {
       });
   }
 
+
+  
+  handleChange = date => {
+    this.setState({
+      startDate: date
+    });
+  };
+
   addComment(c){
     this.setState({comment: this.state.comment.push[c]} )
 
   }
 
-  onsubmitTheStateToBook = ()=>{
+//   onsubmitTheStateToBook = ()=>{
 
-    var x=localStorage.getItem('usertoken');
-    var user =  jwt_decode(x)
-    //we need to pass this for r-booking
-    console.log(user.user._id)
-    axios.post("http://localhost:7000/api/r-booking/"+this.state.id+"/"+user.user._id,this.state)
-    .then(
-      (res) =>{ 
-        console.log(res)
+//     var x=localStorage.getItem('usertoken');
+//     var user =  jwt_decode(x)
+//     //we need to pass this for r-booking
+//     console.log(user.user._id)
+//     axios.post("http://localhost:7000/api/r-booking/"+this.state.id+"/"+user.user._id,this.state)
+//     .then(
+//       (res) =>{ 
+//         console.log(res)
         
-      })
-    .catch(err => console.log(err))
-  }
+//       })
+//     .catch(err => console.log(err))
+//   }
+
 
   showRate(e){
   if(this.state.rate/this.state.raters > 0)
   return (<h6>{ parseFloat(this.state.rate/this.state.raters).toFixed(1) } Stars</h6>)
 }
+handleChange = date => {
+  this.setState({
+    startDate: date
+  });
+};
 
   render() {
     const AllComment=(this.state.comment).map((item, index) => {
@@ -120,7 +151,12 @@ class TourGuyProfile  extends Component {
                        
 
 
-              <br/><Calendar/>
+              <br/><DatePicker
+        selected={this.state.startDate}
+        onChange={this.handleChange} 
+        />
+
+
               <div><Button onClick ={this.onsubmitTheStateToBook}  size="sm" > Book </Button></div>
 
             </div>

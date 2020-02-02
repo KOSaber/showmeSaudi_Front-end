@@ -7,7 +7,6 @@ import {
     Link
   } from 'react-router-dom';
 import axios from 'axios'
-
 class TourGuys extends Component {
     constructor(props){
         super(props);
@@ -27,13 +26,12 @@ class TourGuys extends Component {
 
     componentDidMount() {
      this.setState({city: this.props.match.params.city})
-      console.log(this.state.city)
-
+//      console.log(this.state.city)
       if (this.state.city == undefined){
-        console.log("outside tour guys in city")
+  //      console.log("outside tour guys in city")
         axios.get("http://localhost:7000/api/t-users") 
         .then(res => {
-  
+
           for(let i in res.data){
               this.setState({firstName: this.state.firstName.concat(res.data[i].firstName)})
               this.setState({lastName: this.state.lastName.concat(res.data[i].lastName)} )
@@ -89,10 +87,8 @@ class TourGuys extends Component {
         // const AllTourGuys=guide.map((item, index) => {
         //     return <div key={index} className='Card'>
         //    <div className='ContainerHomeCity'>
-               
         //         <Card style={{ width: '15rem', margin: '2px', marginBottom: '30px' }} className="cardHov">
         //             {/* Add onClick event handler to the name and an image of the place */}
-
         //             <Card.Img variant="top" src={item.imgSrc} width="250" height="250" />
         //             <Card.Body>
         //             {/* {item.city} */}
@@ -108,13 +104,11 @@ class TourGuys extends Component {
         // })   
         // return (
         // <div>
-            
         //  <div className='ContainerHomeSearch'>
         //      <img className='TourGuyHomeImg' src={'https://i.postimg.cc/CMcw8xKf/Screen-Shot-2020-01-28-at-2-18-16-PM.png'} width="100%" height="50%"/>
         //      <div className="searchCont">
         //      <p className='HomeText'>Privileged Access With The Best Tour Guys</p>
         //      </div>
-             
         //   </div>  
         //   <Container>
         //       <Row className='Cont'>
@@ -134,8 +128,7 @@ class TourGuys extends Component {
                     <div>
                     <Card style={{ width: '15rem', margin: '2px', marginBottom: '30px' }} className="cardHov">
                     {/* Add onClick event handler to the name and an image of the place */}
-
-                    <Card.Img variant="top" src="C:\Users\h_noo\GA\showmeSaudi_Back-end\app\uploads\Copying_Toast2005.png" width="250" height="250" />
+                    <Card.Img variant="top" src={this.state.img[index]} width="250" height="250" />
                     <Card.Body>
                     {/* {item.city} */}
                     <span></span>
@@ -149,11 +142,9 @@ class TourGuys extends Component {
                     </div>    
                 </div>
             ))}
-           
             </div>
             </div>
         )
   }
-
 }
 export default TourGuys;
