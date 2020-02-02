@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Card } from 'react-bootstrap/';
 import guide from './DB' //Import the file where the data is stored.
 import {
   Link
 } from 'react-router-dom';
-import { Container, Row,Button} from 'react-bootstrap/';
+import { Container, Row,Button, Card} from 'react-bootstrap/';
+import {Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import Rater from 'react-rater';
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
@@ -23,7 +23,8 @@ class TourGuyProfile  extends Component {
       img:"",
       rate:"",
       price:"",
-      AboutMe:"",
+      AboutMe:"",      
+      comment: [] ,
       id:this.props.match.params.id
     }
   }
@@ -41,6 +42,11 @@ class TourGuyProfile  extends Component {
           this.setState({AboutMe: response.data.AboutMe} )
           this.setState({id: response.data._id} )
       });
+  }
+
+  addComment(c){
+    this.setState({comment: this.state.comment.push[c]} )
+
   }
 
   onsubmitTheStateToBook = ()=>{
@@ -68,11 +74,13 @@ class TourGuyProfile  extends Component {
 }
 
   render() {
+    const AllComment=(this.state.comment).map((item, index) => {
+    return <li key={index}>{this.state.comment[item]}</li>
+    })
+
     // console.log(this.state.rate);
     //   console.log(this.state.raters);
     const AllPackages=guide.map((item, index) => {
-
-          
       return <div key={index} className='Card'>
      <div className='ContainerHomeCity'>
          
@@ -118,12 +126,15 @@ class TourGuyProfile  extends Component {
             <div className="card-body">
               <h1 className="text-white m-0">What our customers says about this tour guy</h1>
               <ul>
-                <li>Comment1</li>
-                <li>Comment2</li>
-                <li>Comment4</li>
+              {AllComment}
               </ul>
-              <Link to="/Comment" className="Link">Add comment <img src={'https://i.postimg.cc/3NQ9Fmr5/blog.png'} width="30" height="30" /></Link>
-              
+              <Form>
+              <FormGroup>
+              <Label for="exampleText">Text Area</Label>
+              <Input type="textarea" name="text" id="exampleText" />
+              <Button onClick ={this.addComment} >Add comment<img src={'https://i.postimg.cc/3NQ9Fmr5/blog.png'} width="30" height="30"/></Button>
+              </FormGroup>
+              </Form>
             </div>
           </div>
           <Container >
