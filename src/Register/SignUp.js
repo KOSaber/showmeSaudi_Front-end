@@ -102,7 +102,7 @@ class SignUp extends Component {
       <Row>
       <Col>
       <FormGroup className="col-md-10">
-        <Label for="Phone Number">Phone Number : </Label>
+        <Label for="Phone Number">Phone Number wehnee e e eeeeee : </Label>
         {/* <Input type="tel" name="Phone" id="Phone" pattern="[+]{1}[0-9]{11,14}" placeholder="+966 " /> */}
         {/* const [value, setValue] = useState()value={this.props.value} onChange={this.props.onChange} */}
         {/* <PhoneInput placeholder="Enter phone number" value={this.state.value} onChange={(e)=>this.setValue(e)}/> */}
@@ -178,6 +178,7 @@ class SignUp extends Component {
            // eslint-disable-next-line react/jsx-no-undef
            
            <SignIn />
+
         
        
           
