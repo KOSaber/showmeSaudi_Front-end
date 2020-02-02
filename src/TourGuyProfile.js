@@ -8,7 +8,6 @@ import axios from 'axios'
 import Booking from './Booking';
 import jwt_decode from 'jwt-decode';
 import Calendar from './Calendar';
-import React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -48,16 +47,15 @@ class TourGuyProfile  extends Component {
   }
 
   onsubmitTheStateToBook = ()=>{
-
+    var datetoB=this.state.startDate.toDateString();
     var x=localStorage.getItem('usertoken');
     var user =  jwt_decode(x)
     //we need to pass this for r-booking
-    console.log(user.user._id)
-    axios.post("http://localhost:7000/api/r-booking/"+this.state.id+"/"+user.user._id,this.state)
+    //console.log(datetoB)
+    axios.post("http://localhost:7000/api/r-booking/"+this.state.id+"/"+user.user._id+"/"+datetoB,this.state)
     .then(
       (res) =>{ 
         console.log(res)
-        
       })
     .catch(err => console.log(err))
   }
