@@ -53,6 +53,7 @@ class SignUp extends Component {
         this.setState({ phone: value }, () => {
           console.log(this.state.phone);
         });}
+
     //yasser type her
       changeTheStateForform = (e)=>{
         this.setState({
@@ -120,7 +121,25 @@ class SignUp extends Component {
       </FormGroup>
       </Col>
       </Row>
+      {/* <Row> */}
       <Col>
+      <FormGroup className="col-md-10">
+          <Label for="exampleSelectMulti">City</Label>
+          <Input type="select" name="city" id="exampleSelect" onChange={this.changeTheStateForform}>
+          <option name="Riyadh" value="Riyadh" >Riyadh</option>
+          <option name="Jeddah" value="Jeddah">Jeddah</option>
+          <option name="Al-Ola" value="Al-Ola">Al-Ola</option>
+          <option name="Al-khobar" value="Al-khobar" >Al-khobar</option>
+          <option name="Abha" value="Abha">Abha</option>
+          <option name="Jazan" value="Jazan">Jazan</option>
+          <option name="Az Zulfi" value="Az Zulfi">Az Zulfi</option>
+          <option name="Makkah" value="Makkah">Makkah</option>
+          <option name="Al-Madinah" value="Al-Madinah">Al-Madinah</option>
+        </Input>
+      </FormGroup>
+      </Col>  
+      <Col>
+
       {/* <FormGroup>
         <DropdownButton id="dropdown-basic-button" title="City :" drop={Right}>
           <Dropdown.Item href="#/action-1">Jeddah</Dropdown.Item>
@@ -131,15 +150,27 @@ class SignUp extends Component {
           <Dropdown.Item href="#/action-3">Jazan</Dropdown.Item>
         </DropdownButton>
       </FormGroup> */}
-      <FormGroup>
-                <Label for="exampleFile">Personal Picture</Label>
-                {/* <Input type="file" name="file" id="exampleFile" /> */}
-                <CustomInput method="post" action="/upload" enctype="multipart/form-data" type="file" name="img" id="exampleFile" label="Please choose your Personal photo" onChange={this.changeTheStateForform}  />
-                 {/* <FormText color="muted">
-                      Please choose your Personal photo ...
-                </FormText> */}
-            </FormGroup>
-            </Col>
+      {/* // <FormGroup>
+      //           <Label for="exampleFile">Personal Picture</Label>
+      //           {/* <Input type="file" name="file" id="exampleFile" /> */}
+                 {/* <CustomInput method="post" action="/upload" enctype="multipart/form-data" type="file" name="img" id="exampleFile" label="Please choose your Personal photo" onChange={this.changeTheStateForform}  />
+                  {/* <FormText color="muted">
+                       Please choose your Personal photo ...
+                 </FormText> */}
+       {/* </FormGroup> */}
+             {/* </Col>  */}
+
+      <FormGroup className="col-md-10">
+          <Label for="exampleFile">Personal Picture</Label>
+          {/* <Input type="file" name="file" id="exampleFile" /> */}
+          <CustomInput method="post" action="/upload" enctype="multipart/form-data" type="file" name="img" id="exampleFile" label="Please choose your Personal photo" onChange={this.changeTheStateForform}  />
+            {/* <FormText color="muted">
+                Please choose your Personal photo ...
+          </FormText> */}
+      </FormGroup>
+      </Col>
+      {/* </Row> */}
+
       <Col>
         <FormGroup tag="fieldset">
         <Label>User Type : </Label>
