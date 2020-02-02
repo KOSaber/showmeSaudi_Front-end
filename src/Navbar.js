@@ -71,7 +71,7 @@ class NavbarMain extends React.Component {
 
         <div>
         <Route exact path="/" component={Home} />
-        <Route path="/TourGuys" component={TourGuys} />
+        <Route exact path="/TourGuys" component={TourGuys} />
         <Route path="/Packages" component={Packages} />
         <Route path="/SignIn" component={SignIn} />
         <Route path="/About" component={About} />
@@ -79,6 +79,8 @@ class NavbarMain extends React.Component {
         <Route path="/SignUp" component={SignUp} />
         <Route path="/TourGuyProfile/:id" component={TourGuyProfile} />
         <Route path="/Comment" component={Comment} />
+        <Route exact path="/TourGuys/:city" component={TourGuys} />
+
         </div>
 
      

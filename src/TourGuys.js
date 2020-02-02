@@ -19,13 +19,43 @@ class TourGuys extends Component {
         rate:[],
         price:[],
         id:[],
-          //city: this.props.match.params.id
+        city: this.props.match.params.city
+        // city: this.props.displayItem
         }
     }
+
+
     componentDidMount() {
+     this.setState({city: this.props.match.params.city})
+      console.log(this.state.city)
+
+      if (this.state.city == undefined){
+        console.log("outside tour guys in city")
         axios.get("http://localhost:7000/api/t-users") 
+        .then(res => {
+  
+          for(let i in res.data){
+              this.setState({firstName: this.state.firstName.concat(res.data[i].firstName)})
+              this.setState({lastName: this.state.lastName.concat(res.data[i].lastName)} )
+              this.setState({address: this.state.address.concat(res.data[i].address)})
+              this.setState({img: this.state.img.concat(res.data[i].img)} )
+              this.setState({rate: this.state.rate.concat(res.data[i].rate)} )
+              this.setState({price: this.state.price.concat(res.data[i].price)} )
+              this.setState({id: this.state.id.concat(res.data[i]._id)} )
+          }
+          //console.log(res)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+      }
+ ////////////////////////////////////////
+       else{
+      console.log("inside tour guys in city")
+      console.log(this.props.match.params.city)
+      // console.log(this.state.city)
+          axios.get("http://localhost:7000/api/t-users/"+this.props.match.params.city) 
           .then(res => {
-    
             for(let i in res.data){
                 this.setState({firstName: this.state.firstName.concat(res.data[i].firstName)})
                 this.setState({lastName: this.state.lastName.concat(res.data[i].lastName)} )
@@ -40,8 +70,7 @@ class TourGuys extends Component {
           .catch((error) => {
             console.log(error)
           })
-        
-      }
+      }}
 
     render() {
         return(
