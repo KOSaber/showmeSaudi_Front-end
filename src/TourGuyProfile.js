@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import { Card } from 'react-bootstrap/';
 import guide from './DB' //Import the file where the data is stored.
 import {Link} from 'react-router-dom';
-import { Container, Row,Button} from 'react-bootstrap/';
+import { Container, Row,Button, Card} from 'react-bootstrap/';
+import {Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import Rater from 'react-rater';
 import axios from 'axios'
-import Booking from './Booking';
-import jwt_decode from 'jwt-decode';
-import Calendar from './Calendar';
-import React from "react";
+import jwt_decode from 'jwt-decode'
+import Calendar from './Calendar'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -26,9 +24,32 @@ class TourGuyProfile  extends Component {
       rate:"",
       price:"",
       AboutMe:"",
-      startDate: new Date(),
-      id:this.props.match.params.id
+      comment: [] ,
+      id:this.props.match.params.id,
+      startDate: new Date()
+
     }
+  }
+
+  changeTheStateForform = (e)=>{
+    this.setState({
+      [e.target.name] : e.target.value
+    })
+  }
+
+  onsubmitTheStateToBook = ()=>{
+    var datetoB=this.state.startDate.toDateString();
+    var x=localStorage.getItem('usertoken');
+    var user =  jwt_decode(x)
+    //we need to pass this for r-booking
+    //console.log(datetoB)
+    axios.post("http://localhost:7000/api/r-booking/"+this.state.id+"/"+user.user._id+"/"+datetoB,this.state)
+    .then(
+      (res) =>{ 
+        console.log(res)
+        
+      })
+    .catch(err => console.log(err))
   }
 
   componentDidMount() {
@@ -47,20 +68,34 @@ class TourGuyProfile  extends Component {
       });
   }
 
-  onsubmitTheStateToBook = ()=>{
 
-    var x=localStorage.getItem('usertoken');
-    var user =  jwt_decode(x)
-    //we need to pass this for r-booking
-    console.log(user.user._id)
-    axios.post("http://localhost:7000/api/r-booking/"+this.state.id+"/"+user.user._id,this.state)
-    .then(
-      (res) =>{ 
-        console.log(res)
-        
-      })
-    .catch(err => console.log(err))
+  
+  handleChange = date => {
+    this.setState({
+      startDate: date
+    });
+  };
+
+  addComment(c){
+    this.setState({comment: this.state.comment.push[c]} )
+
   }
+
+//   onsubmitTheStateToBook = ()=>{
+
+//     var x=localStorage.getItem('usertoken');
+//     var user =  jwt_decode(x)
+//     //we need to pass this for r-booking
+//     console.log(user.user._id)
+//     axios.post("http://localhost:7000/api/r-booking/"+this.state.id+"/"+user.user._id,this.state)
+//     .then(
+//       (res) =>{ 
+//         console.log(res)
+        
+//       })
+//     .catch(err => console.log(err))
+//   }
+
 
   showRate(e){
   if(this.state.rate/this.state.raters > 0)
@@ -73,11 +108,13 @@ handleChange = date => {
 };
 
   render() {
+    const AllComment=(this.state.comment).map((item, index) => {
+    return <li key={index}>{this.state.comment[item]}</li>
+    })
+
     // console.log(this.state.rate);
     //   console.log(this.state.raters);
     const AllPackages=guide.map((item, index) => {
-
-          
       return <div key={index} className='Card'>
      <div className='ContainerHomeCity'>
          
@@ -113,11 +150,15 @@ handleChange = date => {
                        {this.showRate()}
                        
 
+
               <br/><DatePicker
         selected={this.state.startDate}
-        onChange={this.handleChange}
-      />
+        onChange={this.handleChange} 
+        />
+
+
               <div><Button onClick ={this.onsubmitTheStateToBook}  size="sm" > Book </Button></div>
+
             </div>
             {/* /.col-md-4 */}
           </div>
@@ -127,12 +168,15 @@ handleChange = date => {
             <div className="card-body">
               <h1 className="text-white m-0">What our customers says about this tour guy</h1>
               <ul>
-                <li>Comment1</li>
-                <li>Comment2</li>
-                <li>Comment4</li>
+              {AllComment}
               </ul>
-              <Link to="/Comment" className="Link">Add comment <img src={'https://i.postimg.cc/3NQ9Fmr5/blog.png'} width="30" height="30" /></Link>
-              
+              <Form>
+              <FormGroup>
+              <Label for="exampleText">Text Area</Label>
+              <Input type="textarea" name="text" id="exampleText" />
+              <Button onClick ={this.addComment} >Add comment<img src={'https://i.postimg.cc/3NQ9Fmr5/blog.png'} width="30" height="30"/></Button>
+              </FormGroup>
+              </Form>
             </div>
           </div>
           <Container >

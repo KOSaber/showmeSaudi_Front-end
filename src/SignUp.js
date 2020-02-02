@@ -4,18 +4,22 @@ import TourForm from './TourForm'
 import {
   Container,CustomInput, Col,Row, Form,FormText,
   FormGroup, Label, Input,
-  Button
+  Button,DropdownButton,Dropdown,InputGroupButtonDropdown,
+  InputGroupDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
 } from 'reactstrap';
 import {
     Link
    } from 'react-router-dom';
 import './App.css';
 import 'react-phone-number-input/style.css';
-import PhoneInput from 'react-phone-number-input';
-import { render } from "react-dom";
 import ReactPhoneInput from "react-phone-input-2";
 import axios from 'axios'
+import { Right } from 'react-bootstrap/lib/Media';
 import FileUpload from './FileUpload';
+
 
 class SignUp extends Component {
     state={
@@ -33,7 +37,6 @@ class SignUp extends Component {
     hideInfo(e){
         // e.preventDefault()
         this.setState({api:"http://localhost:7000/api/newRuser",moreInfo:''})
-        
       }
     handleChange(e) {
         this.setState({status: !this.state.status})
@@ -42,29 +45,25 @@ class SignUp extends Component {
       }
     //   setValue = (event) => {
     //     // event.preventDefault();
-        
     //     this.setState({value: event.target.value })
     // }
-
     handleOnChange = value => {
         console.log(value);
         this.setState({ phone: value }, () => {
           console.log(this.state.phone);
         });}
+
     //yasser type her
       changeTheStateForform = (e)=>{
         this.setState({
           [e.target.name] : e.target.value
         })
       }
-
       onsubmitTheStateToPosted = ()=>{
-
         axios.post( this.state.api,this.state)
         .then(res => console.log(res))
         .catch(err => console.log(err))
       }
-
   render() {
     console.log(this.state)
   return (
@@ -118,7 +117,40 @@ class SignUp extends Component {
       </FormGroup>
       </Col>
       </Row>
+
+      <Row>
       <Col>
+
+      <FormGroup className="col-md-10">
+          <Label for="exampleSelectMulti">City</Label>
+          <Input type="select" name="city" id="exampleSelect" onChange={this.changeTheStateForform}>
+          <option name="Riyadh" value="Riyadh" >Riyadh</option>
+          <option name="Jeddah" value="Jeddah">Jeddah</option>
+          <option name="Al-Ola" value="Al-Ola">Al-Ola</option>
+          <option name="Al-khobar" value="Al-khobar" >Al-khobar</option>
+          <option name="Abha" value="Abha">Abha</option>
+          <option name="Jazan" value="Jazan">Jazan</option>
+          <option name="Az Zulfi" value="Az Zulfi">Az Zulfi</option>
+          <option name="Makkah" value="Makkah">Makkah</option>
+          <option name="Al-Madinah" value="Al-Madinah">Al-Madinah</option>
+        </Input>
+      </FormGroup>
+      </Col>  
+    
+      <Col>
+
+      <FormGroup className="col-md-10">
+          <Label for="exampleFile">Personal Picture</Label>
+          {/* <Input type="file" name="file" id="exampleFile" /> */}
+          <CustomInput method="post" action="/upload" enctype="multipart/form-data" type="file" name="img" id="exampleFile" label="Please choose your Personal photo" onChange={this.changeTheStateForform}  />
+            {/* <FormText color="muted">
+                Please choose your Personal photo ...
+          </FormText> */}
+      </FormGroup>
+      </Col>
+
+      </Row> 
+
       <FormGroup>
                 <Label for="exampleFile">Personal Picture</Label>
                 {/* <Input type="file" name="file" id="exampleFile" /> */}
@@ -130,11 +162,14 @@ class SignUp extends Component {
 
             </FormGroup>
             </Col>
+
       <Col>
         <FormGroup tag="fieldset">
         <Label>User Type : </Label>
           <CustomInput type="switch" id="exampleCustomSwitch2" name="tourType" label="Tour" onChange={(e)=>this.handleChange(e)} />
           {this.state.moreInfo}
+          <FileUpload method="post" action="/upload" enctype="multipart/form-data" type="file" name="img" id="exampleFile" label="Please choose your Personal photo" onChange={this.changeTheStateForform}/>
+ 
         {/* <FormGroup check>
           <Label check>
             <Input type="radio" name="radio1" onClick={(e)=> this.hideInfo(e)}/>{' '}
@@ -158,5 +193,4 @@ class SignUp extends Component {
     </div>
   );
 }}
-
 export default SignUp;
