@@ -17,7 +17,11 @@ import './App.css';
 import 'react-phone-number-input/style.css';
 import ReactPhoneInput from "react-phone-input-2";
 import axios from 'axios'
+<<<<<<< HEAD
 import { Right } from 'react-bootstrap/lib/Media';
+=======
+import FileUpload from './FileUpload';
+>>>>>>> 98cb1bd33b705fa2093cfaa261e5da816a488436
 
 class SignUp extends Component {
     state={
@@ -123,6 +127,7 @@ class SignUp extends Component {
       </Row>
       {/* <Row> */}
       <Col>
+<<<<<<< HEAD
       <FormGroup className="col-md-10">
           <Label for="exampleSelectMulti">City</Label>
           <Input type="select" name="city" id="exampleSelect" onChange={this.changeTheStateForform}>
@@ -171,6 +176,19 @@ class SignUp extends Component {
       </Col>
       {/* </Row> */}
 
+=======
+      <FormGroup>
+                <Label for="exampleFile">Personal Picture</Label>
+                {/* <Input type="file" name="file" id="exampleFile" /> */}
+                <CustomInput method="post" action="/upload" enctype="multipart/form-data" type="file" name="img" id="exampleFile" label="Please choose your Personal photo" onChange={this.changeTheStateForform}  />
+                {/* <FormText color="muted">
+                      Please choose your Personal photo ...
+                </FormText> */}
+                <FileUpload method="post" action="/upload" enctype="multipart/form-data" type="file" name="img" id="exampleFile" label="Please choose your Personal photo" onChange={this.changeTheStateForform}/>
+
+            </FormGroup>
+            </Col>
+>>>>>>> 98cb1bd33b705fa2093cfaa261e5da816a488436
       <Col>
         <FormGroup tag="fieldset">
         <Label>User Type : </Label>

@@ -135,7 +135,7 @@ class TourGuys extends Component {
                     <Card style={{ width: '15rem', margin: '2px', marginBottom: '30px' }} className="cardHov">
                     {/* Add onClick event handler to the name and an image of the place */}
 
-                    <Card.Img variant="top" src={this.state.img[index]} width="250" height="250" />
+                    <Card.Img variant="top" src="C:\Users\h_noo\GA\showmeSaudi_Back-end\app\uploads\Copying_Toast2005.png" width="250" height="250" />
                     <Card.Body>
                     {/* {item.city} */}
                     <span></span>
