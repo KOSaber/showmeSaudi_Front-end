@@ -10,7 +10,6 @@ import {
   Route,
   Link
 } from 'react-router-dom';
-
 import Home from './Home'
 import Packages from './Packages'
 import Contact from './Contact'
@@ -20,13 +19,9 @@ import About from './About'
 import SignUp from './SignUp'
 import TourGuyProfile from './TourGuyProfile'
 import Comment from './Comment'
-
-
-
 class NavbarMain extends React.Component {
   constructor(props) {
     super(props);
-
     this.toggle = this.toggle.bind(this);
     this.state = {
       isOpen: false,
@@ -39,12 +34,9 @@ class NavbarMain extends React.Component {
       isOpen: !this.state.isOpen
     });
   }
-
   render() {
-   
     return (
       <Router>
-
         <Navbar
           color="faded"
           dark
@@ -55,7 +47,6 @@ class NavbarMain extends React.Component {
         <Container className="AppIc">
           <NavbarBrand> <img src={'https://image.flaticon.com/icons/svg/1373/1373039.svg'} width="50" height="50" /> <span className='NavJed'>ShowMeSaudi</span></NavbarBrand>
         </Container>
-
        <Container>
           <NavbarBrand> <Link to="/" className="NavLink">Home</Link> </NavbarBrand>
           <NavbarBrand> <Link to="/TourGuys" className="NavLink">Tour Guys</Link> </NavbarBrand>
@@ -65,13 +56,9 @@ class NavbarMain extends React.Component {
           <NavbarBrand> <Link to="/contact" className="NavLink">Contact</Link> </NavbarBrand>
         </Container>
         </Navbar>
-
-       
-
-
         <div>
         <Route exact path="/" component={Home} />
-        <Route path="/TourGuys" component={TourGuys} />
+        <Route exact path="/TourGuys" component={TourGuys} />
         <Route path="/Packages" component={Packages} />
         <Route path="/SignIn" component={SignIn} />
         <Route path="/About" component={About} />
@@ -79,12 +66,10 @@ class NavbarMain extends React.Component {
         <Route path="/SignUp" component={SignUp} />
         <Route path="/TourGuyProfile/:id" component={TourGuyProfile} />
         <Route path="/Comment" component={Comment} />
+        <Route exact path="/TourGuys/:city" component={TourGuys} />
         </div>
-
-     
       </Router>  
     );
   }
 }
-
 export default NavbarMain;

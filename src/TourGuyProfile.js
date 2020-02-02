@@ -43,7 +43,7 @@ class TourGuyProfile  extends Component {
     var x=localStorage.getItem('usertoken');
     var user =  jwt_decode(x)
     //we need to pass this for r-booking
-    console.log(datetoB)
+    //console.log(datetoB)
     axios.post("http://localhost:7000/api/r-booking/"+this.state.id+"/"+user.user._id+"/"+datetoB,this.state)
     .then(
       (res) =>{ 
