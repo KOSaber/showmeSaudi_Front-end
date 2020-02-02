@@ -17,7 +17,6 @@ import './App.css';
 import 'react-phone-number-input/style.css';
 import ReactPhoneInput from "react-phone-input-2";
 import axios from 'axios'
-import { Right } from 'react-bootstrap/lib/Media';
 import FileUpload from './FileUpload';
 
 

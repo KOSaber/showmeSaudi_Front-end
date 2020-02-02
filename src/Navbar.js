@@ -67,7 +67,6 @@ class NavbarMain extends React.Component {
         <Route path="/TourGuyProfile/:id" component={TourGuyProfile} />
         <Route path="/Comment" component={Comment} />
         <Route exact path="/TourGuys/:city" component={TourGuys} />
-
         </div>
       </Router>  
     );

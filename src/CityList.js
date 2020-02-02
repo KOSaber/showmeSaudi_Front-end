@@ -19,7 +19,6 @@ class CityList extends Component {
             city: this.state.city
         })
     }
-
     render() {
         const AllCities=guide.map((item, index) => {
             return <div key={index} className='Card'>
@@ -42,7 +41,6 @@ class CityList extends Component {
                   {/* render the list of city generated in the render method above */}
                   {AllCities}
                   {this.state.onDisplay}
-
             </Row>
         </Container>
         )   
