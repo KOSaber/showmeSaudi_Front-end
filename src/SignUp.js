@@ -32,7 +32,8 @@ class SignUp extends Component {
       }
     hideInfo(e){
         // e.preventDefault()
-        this.setState({api:"http://localhost:7000/api/newRuser",moreInfo:''})
+        this.setState({api:"http://localhost:7000/api/newRuser"//,moreInfo:''
+      })
         
       }
     handleChange(e) {

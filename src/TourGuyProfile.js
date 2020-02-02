@@ -9,8 +9,10 @@ import Rater from 'react-rater';
 import axios from 'axios'
 import Booking from './Booking';
 import jwt_decode from 'jwt-decode';
-import Calendar from './Calendar';
-
+import DatePicker from "react-datepicker";
+ 
+import "react-datepicker/dist/react-datepicker.css";
+ 
 
 class TourGuyProfile  extends Component {
   constructor(props){
@@ -25,8 +27,30 @@ class TourGuyProfile  extends Component {
       rate:"",
       price:"",
       AboutMe:"",
-      id:this.props.match.params.id
+      id:this.props.match.params.id,
+      startDate: new Date()
     }
+  }
+
+  changeTheStateForform = (e)=>{
+    this.setState({
+      [e.target.name] : e.target.value
+    })
+  }
+
+  onsubmitTheStateToBook = ()=>{
+    var datetoB=this.state.startDate.toDateString();
+    var x=localStorage.getItem('usertoken');
+    var user =  jwt_decode(x)
+    //we need to pass this for r-booking
+    console.log(datetoB)
+    axios.post("http://localhost:7000/api/r-booking/"+this.state.id+"/"+user.user._id+"/"+datetoB,this.state)
+    .then(
+      (res) =>{ 
+        console.log(res)
+        
+      })
+    .catch(err => console.log(err))
   }
 
   componentDidMount() {
@@ -45,20 +69,12 @@ class TourGuyProfile  extends Component {
       });
   }
 
-  onsubmitTheStateToBook = ()=>{
-
-    var x=localStorage.getItem('usertoken');
-    var user =  jwt_decode(x)
-    //we need to pass this for r-booking
-    console.log(user.user._id)
-    axios.post("http://localhost:7000/api/r-booking/"+this.state.id+"/"+user.user._id,this.state)
-    .then(
-      (res) =>{ 
-        console.log(res)
-        
-      })
-    .catch(err => console.log(err))
-  }
+  
+  handleChange = date => {
+    this.setState({
+      startDate: date
+    });
+  };
 
   showRate(e){
   if(this.state.rate/this.state.raters > 0)
@@ -106,7 +122,10 @@ class TourGuyProfile  extends Component {
                        {this.showRate()}
                        
 
-              <br/><Calendar/>
+              <br/><DatePicker
+        selected={this.state.startDate}
+        onChange={this.handleChange} 
+        />
               <div><Button onClick ={this.onsubmitTheStateToBook}  size="sm" > Book </Button></div>
             </div>
             {/* /.col-md-4 */}
