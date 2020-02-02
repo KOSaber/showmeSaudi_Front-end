@@ -1,17 +1,29 @@
 import React, { Component } from 'react';
+<<<<<<< HEAD:src/containers/TourGuyProfile.js
 import { Card } from 'react-bootstrap/';
 // import '../../node_modules/bulma/css/bulma.css'
 import guide from '../DB' //Import the file where the data is stored.
 import {
   Link
 } from 'react-router-dom';
+=======
+import guide from './DB' //Import the file where the data is stored.
+import {Link} from 'react-router-dom';
+>>>>>>> 3c39f5208b2726c378b4432900402464cf97ea9b:src/TourGuyProfile.js
 import { Container, Row,Button, Card} from 'react-bootstrap/';
 import {Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import Rater from 'react-rater';
 import axios from 'axios'
+<<<<<<< HEAD:src/containers/TourGuyProfile.js
 import Booking from './Booking';
 import jwt_decode from 'jwt-decode';
 import Calendar from './Calendar';
+=======
+import jwt_decode from 'jwt-decode'
+import Calendar from './Calendar'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+>>>>>>> 3c39f5208b2726c378b4432900402464cf97ea9b:src/TourGuyProfile.js
 
 
 class TourGuyProfile  extends Component {
@@ -26,12 +38,37 @@ class TourGuyProfile  extends Component {
       img:"",
       rate:"",
       price:"",
-      AboutMe:"",      
+      AboutMe:"",
       comment: [] ,
-      id:this.props.match.params.id
+      id:this.props.match.params.id,
+      startDate: new Date()
+
     }
   }
 
+<<<<<<< HEAD:src/containers/TourGuyProfile.js
+=======
+  changeTheStateForform = (e)=>{
+    this.setState({
+      [e.target.name] : e.target.value
+    })
+  }
+
+  onsubmitTheStateToBook = ()=>{
+    var datetoB=this.state.startDate.toDateString();
+    var x=localStorage.getItem('usertoken');
+    var user =  jwt_decode(x)
+    //we need to pass this for r-booking
+    //console.log(datetoB)
+    axios.post("http://localhost:7000/api/r-booking/"+this.state.id+"/"+user.user._id+"/"+datetoB,this.state)
+    .then(
+      (res) =>{ 
+        console.log(res)
+        
+      })
+    .catch(err => console.log(err))
+  }
+>>>>>>> 3c39f5208b2726c378b4432900402464cf97ea9b:src/TourGuyProfile.js
 
   componentDidMount() {
 {/* <Booking></Booking> */}
@@ -54,11 +91,20 @@ class TourGuyProfile  extends Component {
 
   }
 
+
+  
+  handleChange = date => {
+    this.setState({
+      startDate: date
+    });
+  };
+
   addComment(c){
     this.setState({comment: this.state.comment.push[c]} )
 
   }
 
+<<<<<<< HEAD:src/containers/TourGuyProfile.js
   onsubmitTheStateToBook = ()=>{
     var x=localStorage.getItem('usertoken');
     var user =  jwt_decode(x)
@@ -90,11 +136,33 @@ class TourGuyProfile  extends Component {
       })
     .catch(err => console.log(err))
   }
+=======
+//   onsubmitTheStateToBook = ()=>{
+
+//     var x=localStorage.getItem('usertoken');
+//     var user =  jwt_decode(x)
+//     //we need to pass this for r-booking
+//     console.log(user.user._id)
+//     axios.post("http://localhost:7000/api/r-booking/"+this.state.id+"/"+user.user._id,this.state)
+//     .then(
+//       (res) =>{ 
+//         console.log(res)
+        
+//       })
+//     .catch(err => console.log(err))
+//   }
+
+>>>>>>> 3c39f5208b2726c378b4432900402464cf97ea9b:src/TourGuyProfile.js
 
   showRate(e){
   if(this.state.rate/this.state.raters > 0)
   return (<h6>{ parseFloat(this.state.rate/this.state.raters).toFixed(1) } Stars</h6>)
 }
+handleChange = date => {
+  this.setState({
+    startDate: date
+  });
+};
 
   render() {
     const AllComment=(this.state.comment).map((item, index) => {
@@ -140,7 +208,12 @@ class TourGuyProfile  extends Component {
                        
 
 
-              <br/><Calendar/>
+              <br/><DatePicker
+        selected={this.state.startDate}
+        onChange={this.handleChange} 
+        />
+
+
               <div><Button onClick ={this.onsubmitTheStateToBook}  size="sm" > Book </Button></div>
 
               <div><Button onClick ={this.onsubmitTheStateToBook} > Booking</Button></div>

@@ -10,6 +10,7 @@ import {
   Route,
   Link
 } from 'react-router-dom';
+<<<<<<< HEAD:src/components/Navbar.js
 
 import Home from '../containers/Home'
 import Packages from '../containers/Packages'
@@ -23,10 +24,20 @@ import Comment from '../components/Footer'
 
 
 
+=======
+import Home from './Home'
+import Packages from './Packages'
+import Contact from './Contact'
+import TourGuys from './TourGuys'
+import SignIn from './SignIn'
+import About from './About'
+import SignUp from './SignUp'
+import TourGuyProfile from './TourGuyProfile'
+import Comment from './Comment'
+>>>>>>> 3c39f5208b2726c378b4432900402464cf97ea9b:src/Navbar.js
 class NavbarMain extends React.Component {
   constructor(props) {
     super(props);
-
     this.toggle = this.toggle.bind(this);
     this.state = {
       isOpen: false,
@@ -39,12 +50,9 @@ class NavbarMain extends React.Component {
       isOpen: !this.state.isOpen
     });
   }
-
   render() {
-   
     return (
       <Router>
-
         <Navbar
           color="faded"
           dark
@@ -55,7 +63,6 @@ class NavbarMain extends React.Component {
         <Container className="AppIc">
           <NavbarBrand> <img src={'https://image.flaticon.com/icons/svg/1373/1373039.svg'} width="50" height="50" /> <span className='NavJed'>ShowMeSaudi</span></NavbarBrand>
         </Container>
-
        <Container>
           <NavbarBrand> <Link to="/" className="NavLink">Home</Link> </NavbarBrand>
           <NavbarBrand> <Link to="/TourGuys" className="NavLink">Tour Guys</Link> </NavbarBrand>
@@ -65,10 +72,6 @@ class NavbarMain extends React.Component {
           <NavbarBrand> <Link to="/contact" className="NavLink">Contact</Link> </NavbarBrand>
         </Container>
         </Navbar>
-
-       
-
-
         <div>
         <Route exact path="/" component={Home} />
         <Route exact path="/TourGuys" component={TourGuys} />
@@ -82,11 +85,8 @@ class NavbarMain extends React.Component {
         <Route exact path="/TourGuys/:city" component={TourGuys} />
 
         </div>
-
-     
       </Router>  
     );
   }
 }
-
 export default NavbarMain;

@@ -17,11 +17,9 @@ import '../App.css';
 import 'react-phone-number-input/style.css';
 import ReactPhoneInput from "react-phone-input-2";
 import axios from 'axios'
-<<<<<<< HEAD
 import { Right } from 'react-bootstrap/lib/Media';
-=======
 import FileUpload from './FileUpload';
->>>>>>> 98cb1bd33b705fa2093cfaa261e5da816a488436
+
 
 class SignUp extends Component {
     state={
@@ -41,7 +39,6 @@ class SignUp extends Component {
     hideInfo(e){
         // e.preventDefault()
         this.setState({api:"http://localhost:7000/api/newRuser",moreInfo:''})
-        
       }
     handleChange(e) {
         this.setState({status: !this.state.status})
@@ -50,10 +47,8 @@ class SignUp extends Component {
       }
     //   setValue = (event) => {
     //     // event.preventDefault();
-        
     //     this.setState({value: event.target.value })
     // }
-
     handleOnChange = value => {
         console.log(value);
         this.setState({ phone: value }, () => {
@@ -66,9 +61,7 @@ class SignUp extends Component {
           [e.target.name] : e.target.value
         })
       }
-
       onsubmitTheStateToPosted = ()=>{
-
         axios.post( this.state.api,this.state)
         .then(res => 
           {console.log(res)
@@ -82,7 +75,6 @@ class SignUp extends Component {
         
         .catch(err => console.log(err))
       }
-
   render() {
     console.log(this.state)
 
@@ -139,9 +131,10 @@ class SignUp extends Component {
       </FormGroup>
       </Col>
       </Row>
-      {/* <Row> */}
+
+      <Row>
       <Col>
-<<<<<<< HEAD
+
       <FormGroup className="col-md-10">
           <Label for="exampleSelectMulti">City</Label>
           <Input type="select" name="city" id="exampleSelect" onChange={this.changeTheStateForform}>
@@ -157,27 +150,8 @@ class SignUp extends Component {
         </Input>
       </FormGroup>
       </Col>  
+    
       <Col>
-
-      {/* <FormGroup>
-        <DropdownButton id="dropdown-basic-button" title="City :" drop={Right}>
-          <Dropdown.Item href="#/action-1">Jeddah</Dropdown.Item>
-          <Dropdown.Item href="#/action-2">Riyadh</Dropdown.Item>
-          <Dropdown.Item href="#/action-3">Al-Khobar</Dropdown.Item>
-          <Dropdown.Item href="#/action-3">Al-Ola</Dropdown.Item>
-          <Dropdown.Item href="#/action-3">Abha</Dropdown.Item>
-          <Dropdown.Item href="#/action-3">Jazan</Dropdown.Item>
-        </DropdownButton>
-      </FormGroup> */}
-      {/* // <FormGroup>
-      //           <Label for="exampleFile">Personal Picture</Label>
-      //           {/* <Input type="file" name="file" id="exampleFile" /> */}
-                 {/* <CustomInput method="post" action="/upload" enctype="multipart/form-data" type="file" name="img" id="exampleFile" label="Please choose your Personal photo" onChange={this.changeTheStateForform}  />
-                  {/* <FormText color="muted">
-                       Please choose your Personal photo ...
-                 </FormText> */}
-       {/* </FormGroup> */}
-             {/* </Col>  */}
 
       <FormGroup className="col-md-10">
           <Label for="exampleFile">Personal Picture</Label>
@@ -188,9 +162,9 @@ class SignUp extends Component {
           </FormText> */}
       </FormGroup>
       </Col>
-      {/* </Row> */}
 
-=======
+      </Row> 
+
       <FormGroup>
                 <Label for="exampleFile">Personal Picture</Label>
                 {/* <Input type="file" name="file" id="exampleFile" /> */}
@@ -202,12 +176,14 @@ class SignUp extends Component {
 
             </FormGroup>
             </Col>
->>>>>>> 98cb1bd33b705fa2093cfaa261e5da816a488436
+
       <Col>
         <FormGroup tag="fieldset">
         <Label>User Type : </Label>
           <CustomInput type="switch" id="exampleCustomSwitch2" name="tourType" label="Tour" onChange={(e)=>this.handleChange(e)} />
           {this.state.moreInfo}
+          <FileUpload method="post" action="/upload" enctype="multipart/form-data" type="file" name="img" id="exampleFile" label="Please choose your Personal photo" onChange={this.changeTheStateForform}/>
+ 
         {/* <FormGroup check>
           <Label check>
             <Input type="radio" name="radio1" onClick={(e)=> this.hideInfo(e)}/>{' '}
@@ -233,6 +209,7 @@ class SignUp extends Component {
     </Form>
     </div>
   );
+<<<<<<< HEAD:src/Register/SignUp.js
       }
       else{
         return(
@@ -252,4 +229,7 @@ class SignUp extends Component {
 
 }
 
+=======
+}}
+>>>>>>> 3c39f5208b2726c378b4432900402464cf97ea9b:src/SignUp.js
 export default SignUp;
