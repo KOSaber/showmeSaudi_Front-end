@@ -1,11 +1,9 @@
-import guide from './DB' //Import the file where the data is stored.
 import React, { Component } from 'react';
 import {
-  Container,CustomInput, Col, Form,FormText,
-  FormGroup, Label, Input,
-  Button,
+  CustomInput,Form,
+  FormGroup, Label, Input
 } from 'reactstrap';
-import './App.css';
+import '../App.css';
 import axios from 'axios'
 
 
@@ -40,12 +38,14 @@ class TourForm extends Component{
                       Please choose your Personal photo ...
                 </FormText> */}
             </FormGroup>
-            <FormGroup>
+
+          
+            {/* <FormGroup>
                 <Label for="exampleText">Activity ..</Label>
                 <Input type="textarea" name="activity1" id="activity1" placeholder="Please Enter your First activity"/><br/>
                 <Input type="textarea" name="activity2" id="activity2" placeholder="Please Enter your Second activity"/><br/>
                 <Input type="textarea" name="activity3" id="activity3" placeholder="Please Enter your Third activity"/><br/>
-            </FormGroup>
+            </FormGroup> */}
             </Form>
             </dev>
         )

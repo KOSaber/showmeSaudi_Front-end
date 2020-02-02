@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Card } from 'react-bootstrap/';
-import guide from './DB'; //Import the file where the data is stored.
+import guide from '../DB'; //Import the file where the data is stored.
+import ListTourGuyInCity from './ListTourGuyInCity';
 import TourGuys from './TourGuys';
 import { Container, Row} from 'react-bootstrap/';
 import {
