@@ -19,7 +19,7 @@ import 'react-phone-number-input/style.css';
 import ReactPhoneInput from "react-phone-input-2";
 import axios from 'axios'
 // import { Right } from 'react-bootstrap/lib/Media';
-import {storage} from './firebase';
+import {storage} from '../firebase';
 
 class SignUp extends Component {
   constructor(props) {
