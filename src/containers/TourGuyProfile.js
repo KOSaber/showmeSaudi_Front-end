@@ -68,7 +68,7 @@ class TourGuyProfile  extends Component {
         //console.log(response);
           this.setState({firstName: response.data.firstName})
           this.setState({lastName: response.data.lastName} )
-          this.setState({address: response.data.address})
+          this.setState({city: response.data.city})
           this.setState({img: response.data.img} )
           this.setState({rate: response.data.rate} )
           this.setState({price: response.data.price} )
