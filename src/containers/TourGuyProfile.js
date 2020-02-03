@@ -310,11 +310,10 @@ renderNormal() {
               <ul>
               {comments} 
               </ul>
-              <Form>
-              <FormGroup>
-              <Label for="exampleText">Text Area</Label>
-              <Input type="textarea" name="text" id="exampleText" />
-              <Button onClick ={this.addComment} >Add comment<img src={'https://i.postimg.cc/3NQ9Fmr5/blog.png'} width="30" height="30"/></Button>
+              <Form className="SignUp" onSubmit ={this.onsubmitTheStateToPosted}>
+              <FormGroup >
+              <Input type="textarea" name="comment" id="exampleText" placeholder="Write your comment here" onChange={this.changeTheStateForform}/>
+              <Button onClick ={this.onsubmitTheStateToPosted}>Add comment<img src={'https://i.postimg.cc/3NQ9Fmr5/blog.png'} width="30" height="30"/></Button>
               </FormGroup>
               </Form>
             </div>
