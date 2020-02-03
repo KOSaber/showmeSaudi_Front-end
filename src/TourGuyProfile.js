@@ -21,8 +21,8 @@ class TourGuyProfile  extends Component {
       raters: 0,
       firstName:"",
       lastName: "",
-      address:"",
-      img:"",
+      city:"",
+      image:"",
       rate:"",
       price:"",
       AboutMe:"",
@@ -41,8 +41,8 @@ class TourGuyProfile  extends Component {
         //console.log(response);
           this.setState({firstName: response.data.firstName})
           this.setState({lastName: response.data.lastName} )
-          this.setState({address: response.data.address})
-          this.setState({img: response.data.img} )
+          this.setState({city: response.data.city})
+          this.setState({image: response.data.image} )
           this.setState({rate: response.data.rate} )
           this.setState({price: response.data.price} )
           this.setState({AboutMe: response.data.AboutMe} )
@@ -129,7 +129,7 @@ handleChange = date => {
           {/* Heading Row */}
           <div className="row align-items-center my-5">
             <div className="col-lg-7">
-              <img className="img-fluid rounded mb-4 mb-lg-0" src={this.state.img} alt="" />
+              <img className="img-fluid rounded mb-4 mb-lg-0" src={this.state.image} alt="" />
             </div>
             {/* /.col-lg-8 */}
             <div className="col-lg-5">
