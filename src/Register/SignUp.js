@@ -17,8 +17,8 @@ import '../App.css';
 import 'react-phone-number-input/style.css';
 import ReactPhoneInput from "react-phone-input-2";
 import axios from 'axios'
-import { Right } from 'react-bootstrap/lib/Media';
-import FileUpload from './FileUpload';
+// import { Right } from 'react-bootstrap/lib/Media';
+import FileUpload from '../FileUpload';
 
 
 class SignUp extends Component {
@@ -134,7 +134,6 @@ class SignUp extends Component {
 
       <Row>
       <Col>
-
       <FormGroup className="col-md-10">
           <Label for="exampleSelectMulti">City</Label>
           <Input type="select" name="city" id="exampleSelect" onChange={this.changeTheStateForform}>
@@ -152,37 +151,21 @@ class SignUp extends Component {
       </Col>  
     
       <Col>
-
       <FormGroup className="col-md-10">
           <Label for="exampleFile">Personal Picture</Label>
-          {/* <Input type="file" name="file" id="exampleFile" /> */}
           <CustomInput method="post" action="/upload" enctype="multipart/form-data" type="file" name="img" id="exampleFile" label="Please choose your Personal photo" onChange={this.changeTheStateForform}  />
-            {/* <FormText color="muted">
-                Please choose your Personal photo ...
-          </FormText> */}
       </FormGroup>
       </Col>
 
       </Row> 
 
-      <FormGroup>
-                <Label for="exampleFile">Personal Picture</Label>
-                {/* <Input type="file" name="file" id="exampleFile" /> */}
-                <CustomInput method="post" action="/upload" enctype="multipart/form-data" type="file" name="img" id="exampleFile" label="Please choose your Personal photo" onChange={this.changeTheStateForform}  />
-                {/* <FormText color="muted">
-                      Please choose your Personal photo ...
-                </FormText> */}
-                <FileUpload method="post" action="/upload" enctype="multipart/form-data" type="file" name="img" id="exampleFile" label="Please choose your Personal photo" onChange={this.changeTheStateForform}/>
-
-            </FormGroup>
-            </Col>
-
       <Col>
-        <FormGroup tag="fieldset">
+      <br/>
+        <FormGroup tag="fieldset" >
         <Label>User Type : </Label>
           <CustomInput type="switch" id="exampleCustomSwitch2" name="tourType" label="Tour" onChange={(e)=>this.handleChange(e)} />
           {this.state.moreInfo}
-          <FileUpload method="post" action="/upload" enctype="multipart/form-data" type="file" name="img" id="exampleFile" label="Please choose your Personal photo" onChange={this.changeTheStateForform}/>
+          {/* <FileUpload  className="col-md-4" method="post" action="/upload" enctype="multipart/form-data" type="file" name="img" id="exampleFile" label="Please choose your Personal photo" onChange={this.changeTheStateForform}/> */}
  
         {/* <FormGroup check>
           <Label check>
@@ -200,16 +183,12 @@ class SignUp extends Component {
       </FormGroup>
       </Col>
       <Col>
-      <Button onClick ={this.onsubmitTheStateToPosted} > Submit
-      {console.log(this.state.send)}
-      
-      </Button>
+      <Button onClick ={this.onsubmitTheStateToPosted} > Submit {console.log(this.state.send)}</Button>
       <Link to="/SignIn"><Button className='log'>Sign In</Button></Link>
       </Col>
     </Form>
     </div>
   );
-<<<<<<< HEAD:src/Register/SignUp.js
       }
       else{
         return(
@@ -229,7 +208,4 @@ class SignUp extends Component {
 
 }
 
-=======
-}}
->>>>>>> 3c39f5208b2726c378b4432900402464cf97ea9b:src/SignUp.js
 export default SignUp;

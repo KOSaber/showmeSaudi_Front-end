@@ -1,29 +1,18 @@
 import React, { Component } from 'react';
-<<<<<<< HEAD:src/containers/TourGuyProfile.js
 import { Card } from 'react-bootstrap/';
 // import '../../node_modules/bulma/css/bulma.css'
 import guide from '../DB' //Import the file where the data is stored.
-import {
-  Link
-} from 'react-router-dom';
-=======
-import guide from './DB' //Import the file where the data is stored.
 import {Link} from 'react-router-dom';
->>>>>>> 3c39f5208b2726c378b4432900402464cf97ea9b:src/TourGuyProfile.js
-import { Container, Row,Button, Card} from 'react-bootstrap/';
-import {Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Container, Row,Col, Button} from 'react-bootstrap/';
+import {Form, FormGroup,CustomInput, Label, Input, FormText } from 'reactstrap';
 import Rater from 'react-rater';
 import axios from 'axios'
-<<<<<<< HEAD:src/containers/TourGuyProfile.js
-import Booking from './Booking';
-import jwt_decode from 'jwt-decode';
-import Calendar from './Calendar';
-=======
 import jwt_decode from 'jwt-decode'
-import Calendar from './Calendar'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
->>>>>>> 3c39f5208b2726c378b4432900402464cf97ea9b:src/TourGuyProfile.js
+import 'react-phone-number-input/style.css';
+import ReactPhoneInput from "react-phone-input-2";
+import d from "../img/d.png"
 
 
 class TourGuyProfile  extends Component {
@@ -41,37 +30,39 @@ class TourGuyProfile  extends Component {
       AboutMe:"",
       comment: [] ,
       id:this.props.match.params.id,
-      startDate: new Date()
-
+      startDate: new Date(),
+      editing:false, 
+      save:false,
+      x:localStorage.getItem('usertoken'),
+     user:""
     }
+    this.edit = this.edit.bind(this);
+    this.save = this.save.bind(this);
   }
 
-<<<<<<< HEAD:src/containers/TourGuyProfile.js
-=======
+    //helper functions that change state
+    edit()
+    {
+      this.setState({editing:true});
+      alert("now editing");
+    }
+    save()
+    {
+      this.setState({editing:false});
+      //call the method below to update and tarnsfer the data to the back-end  
+      this.onsubmitTheStateToEdit()
+      //juts for testing 
+      alert("now saving value ");
+    }
+
   changeTheStateForform = (e)=>{
     this.setState({
       [e.target.name] : e.target.value
     })
   }
 
-  onsubmitTheStateToBook = ()=>{
-    var datetoB=this.state.startDate.toDateString();
-    var x=localStorage.getItem('usertoken');
-    var user =  jwt_decode(x)
-    //we need to pass this for r-booking
-    //console.log(datetoB)
-    axios.post("http://localhost:7000/api/r-booking/"+this.state.id+"/"+user.user._id+"/"+datetoB,this.state)
-    .then(
-      (res) =>{ 
-        console.log(res)
-        
-      })
-    .catch(err => console.log(err))
-  }
->>>>>>> 3c39f5208b2726c378b4432900402464cf97ea9b:src/TourGuyProfile.js
-
   componentDidMount() {
-{/* <Booking></Booking> */}
+    this.setState({user: jwt_decode(this.state.x)})
     axios.get(`http://localhost:7000/api/t-user/`+this.props.match.params.id)
       .then(response => {
         //console.log(response);
@@ -84,13 +75,34 @@ class TourGuyProfile  extends Component {
           this.setState({AboutMe: response.data.AboutMe} )
           this.setState({id: response.data._id} )
       }).catch((err)=> console.log("data has not been recived"));
-      // if()
-      // {
-
-      // }
 
   }
 
+    //Booking
+    onsubmitTheStateToBook = ()=>{ 
+      if (this.state.startDate==null){
+        alert("please select date")
+      }
+      else{
+        var datetoB=this.state.startDate.toDateString();
+        axios.post("http://localhost:7000/api/r-booking/"+this.state.id+"/"+this.state.user.user._id+"/"+datetoB,this.state)
+        .then(
+          (res) =>{ 
+            console.log(res)
+          })
+        .catch(err => console.log(err))
+      } 
+    }
+// EDIT PROFILE 
+onsubmitTheStateToEdit = ()=>{
+  axios.put("http://localhost:7000/api/t-user_edit/"+this.props.match.params.id, this.state)
+  .then((res) =>
+  {
+    console.log("what data do u have ", res)
+  } 
+)
+  .catch(err => console.log(err))
+}
 
   
   handleChange = date => {
@@ -104,56 +116,6 @@ class TourGuyProfile  extends Component {
 
   }
 
-<<<<<<< HEAD:src/containers/TourGuyProfile.js
-  onsubmitTheStateToBook = ()=>{
-    var x=localStorage.getItem('usertoken');
-    var user =  jwt_decode(x)
-    //we need to pass this for r-booking
-    console.log(user.user._id)
-
-
-    // axios.post("http://localhost:7000/api/r-booking/"+this.state.id+"/"+user.user._id,this.state)
-    // .then(
-    //   (res) =>{ 
-    //     console.log(res)
-
-    axios.post("http://localhost:7000/api/r-booking/"+this.state.id,this.state)
-    .then(
-      (res) =>{ 
-        console.log(res)
-    var user =  jwt_decode(res.data.token)
-    console.log(user)
-
-    
-
-      if(user.user.tourType==="regUser"){
-        this.props.history.push("./");
-      }
-      else{
-        console.log("Tour user");        
-        this.props.history.push("./TourGuyProfile")
-      }
-      })
-    .catch(err => console.log(err))
-  }
-=======
-//   onsubmitTheStateToBook = ()=>{
-
-//     var x=localStorage.getItem('usertoken');
-//     var user =  jwt_decode(x)
-//     //we need to pass this for r-booking
-//     console.log(user.user._id)
-//     axios.post("http://localhost:7000/api/r-booking/"+this.state.id+"/"+user.user._id,this.state)
-//     .then(
-//       (res) =>{ 
-//         console.log(res)
-        
-//       })
-//     .catch(err => console.log(err))
-//   }
-
->>>>>>> 3c39f5208b2726c378b4432900402464cf97ea9b:src/TourGuyProfile.js
-
   showRate(e){
   if(this.state.rate/this.state.raters > 0)
   return (<h6>{ parseFloat(this.state.rate/this.state.raters).toFixed(1) } Stars</h6>)
@@ -164,10 +126,98 @@ handleChange = date => {
   });
 };
 
-  render() {
+renderEdit()
+{
+return(
+  
+<div  className="central">
+  <h2 className="title"> Edit Proile </h2> 
+  {/* add img latter  */}
+    {/* <figure><img src={this.state.img} alt="" class="img-thumbnail" /></figure> */}
+    
+      <Form>
+      <Row>
+      <Col>
+      <FormGroup className="col-md-10">
+        <img src={d} alt="" class="img-thumbnail" />
+          <Label for="exampleFile">Change Personal Picture :</Label>
+          <CustomInput method="post" action="/upload" enctype="multipart/form-data" type="file" name="img" id="exampleFile" label="Please choose your Personal photo" onChange={this.changeTheStateForform}  />
+        
+      </FormGroup>
+      </Col>
+      </Row>
+      <Row>
+      <Col>
+        <FormGroup className="col-md-10">
+            <Label for="First Name">First Name :</Label>
+            <Input type="text" className="input" name="firstName" onChange={this.changeTheStateForform} defaultValue={this.state.firstName}/>
+        </FormGroup>
+      </Col>
+      <Col>
+        <FormGroup className="col-md-10">
+            <Label for="Last Name">Last Name :</Label>
+            <Input type="text" className="input" name="lastName" onChange={this.changeTheStateForform} defaultValue={this.state.lastName}/>
+        </FormGroup>
+      </Col>
+      </Row>
+      <Row>
+      <Col>
+      <FormGroup className="col-md-10">
+        <Label for="Phone Number">Phone Number: </Label>
+        <ReactPhoneInput inputExtraProps={{name: "phone",required: true,autoFocus: true}}
+          defaultCountry={"sa"} value={this.state.phone} placeholder="+966" onChange={this.handleOnChange}/>
+      </FormGroup>
+      </Col>
+      <Col>
+      <FormGroup className="col-md-10">
+        <Label for="examplePassword">Password :</Label>
+        <Input type="password" name="password" id="newPassword" placeholder="new password" onChange={this.changeTheStateForform} />
+      </FormGroup>
+      </Col>
+      </Row>
+      <Row>
+      <Col>
+      <FormGroup className="col-md-10">
+                <Label for="exampleText">About Me ..</Label>
+                <Input type="textarea" className="input" name="AboutMe" onChange={this.changeTheStateForform} defaultValue={this.state.AboutMe}/>
+      </FormGroup>
+      </Col>
+      <Col>
+      <FormGroup className="col-md-10">
+            <Label for="Price">Price per Hour :</Label>
+            <Input type="text" className="input" name="price" onChange={this.changeTheStateForform}
+      defaultValue={this.state.price}/>
+      </FormGroup>
+      </Col>
+      </Row>
+      <FormGroup className="col-md-10"> 
+                <Label for="exampleText">Add  package to your profile: </Label>
+                <Input type="textarea" name="activity1" id="activity1" placeholder="Please Enter your First activity" name="packName" onChange={this.changeTheStateForform}/><br/>
+                <Input type="textarea" name="activity2" id="activity2" placeholder="Please Enter your Second activity" name="packName" onChange={this.changeTheStateForform} /><br/>
+                <Input type="textarea" name="activity3" id="activity3" placeholder="Please Enter your Third activity" name="packName" onChange={this.changeTheStateForform}/><br/>
+      </FormGroup> 
+      {/* <p>
+        Add  package to your profile:
+      <strong> Package Name:</strong>
+      <input type="text" className="input" name="packName" onChange={this.changeTheStateForform}
+      defaultValue={this.state.package[0].packName}/ > per hour
+      </p> */}
+      
+      
+      {/* <Button variant="outline-warning" onClick={this.onsubmitTheStateToEdit}>Update</Button> */}
+      <Button variant="outline-warning" onClick={this.save}>Save</Button>
+        
+        </Form>
+
+        
+</div>
+);}
+
+renderNormal() {
     const AllComment=(this.state.comment).map((item, index) => {
     return <li key={index}>{this.state.comment[item]}</li>
     })
+    
 
     // console.log(this.state.rate);
     //   console.log(this.state.raters);
@@ -191,38 +241,32 @@ handleChange = date => {
     
     return (
       <div>
-        <br/>
-        {/* Page Content */}
-        <div className="container">
-          {/* Heading Row */}
-          <div className="row align-items-center my-5">
+        <br/><br/><br/>
+        <article className="box media">
+          <div className="media-left">
+            {/* <figure><img src={this.state.img} alt="" class="img-thumbnail" /></figure> */}
             <div className="col-lg-7">
-              <img className="img-fluid rounded mb-4 mb-lg-0" src={this.state.img} alt="" />
-            </div>
-            {/* /.col-lg-8 */}
-            <div className="col-lg-5">
-              <h1 className="font-weight-light">{this.state.firstName+" "+this.state.lastName}</h1>
-              <p>{this.state.AboutMe}</p>
+              <img className="img-fluid rounded mb-4 mb-lg-0" src={d} alt="" />
+              </div>
+              </div>
+              <div className="media-content">
+              <h2> {this.state.firstName+" "+this.state.lastName} </h2>
+              <p><strong>About me: {this.state.AboutMe}</strong></p>
+              <p><strong>Price: {this.state.price}</strong></p>
+              <p><strong>City: {this.state.city}</strong></p>
+              <p><strong>Pakage Name:{this.state.package}</strong></p>
+              </div>
+              <div classNmae="media-right">
+              <Button variant="outline-primary" onClick={this.edit}>Edit Proile</Button>
+              </div>
+            </article>
+       
               <Rater total={5} rating={this.state.rate/this.state.raters} style={{cursor:'pointer'}} onRate={(rating)=>{this.setState((prev)=>({raters: prev.raters +1, rate: rating.rating + prev.rate}));}} /> 
                        {this.showRate()}
                        
-
-
-              <br/><DatePicker
-        selected={this.state.startDate}
-        onChange={this.handleChange} 
-        />
-
-
+              <br/><DatePicker selected={this.state.startDate} onChange={this.handleChange} />
               <div><Button onClick ={this.onsubmitTheStateToBook}  size="sm" > Book </Button></div>
-
-              <div><Button onClick ={this.onsubmitTheStateToBook} > Booking</Button></div>
-              {/* <div className="media-right"><button className="button is-primary">Edit</button></div> */}
-            </div>
-            {/* /.col-md-4 */}
-          </div>
-          {/* /.row */}
-          {/* Call to Action Well */}
+             
           <div className="card text-white color my-5 py-4 text-center">
             <div className="card-body">
               <h1 className="text-white m-0">What our customers says about this tour guy</h1>
@@ -247,8 +291,18 @@ handleChange = date => {
 
         {/* /.container */}
       </div>
-    </div>
+    
   );}
+
+
+render()
+      {
+        if(this.state.editing)
+          return this.renderEdit();
+        else
+        return this.renderNormal()
+      }
+
   
 };
 

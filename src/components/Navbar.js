@@ -10,7 +10,6 @@ import {
   Route,
   Link
 } from 'react-router-dom';
-<<<<<<< HEAD:src/components/Navbar.js
 
 import Home from '../containers/Home'
 import Packages from '../containers/Packages'
@@ -24,17 +23,6 @@ import Comment from '../components/Footer'
 
 
 
-=======
-import Home from './Home'
-import Packages from './Packages'
-import Contact from './Contact'
-import TourGuys from './TourGuys'
-import SignIn from './SignIn'
-import About from './About'
-import SignUp from './SignUp'
-import TourGuyProfile from './TourGuyProfile'
-import Comment from './Comment'
->>>>>>> 3c39f5208b2726c378b4432900402464cf97ea9b:src/Navbar.js
 class NavbarMain extends React.Component {
   constructor(props) {
     super(props);

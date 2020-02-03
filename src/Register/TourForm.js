@@ -26,7 +26,7 @@ class TourForm extends Component{
                 
             <Form onSubmit ={this.onsubmitTheStateToPosted}>
             
-            <FormGroup>
+            <FormGroup className="col-md-10">
                 <Label for="exampleText">About Me ..</Label>
                 <Input type="textarea" name="AboutMe" id="exampleText" onChange={this.changeTheStateForform}/>
             </FormGroup>
