@@ -75,7 +75,36 @@ class TourGuyProfile  extends Component {
           this.setState({id: response.data._id} )
       }).catch((err)=> console.log("data has not been recived"));
 
-  }
+
+  ////////////////////////////// Comment api
+  axios.get(`http://localhost:7000/api/t-comment/`+this.props.match.params.id) 
+  .then(res => {
+    this.setState({comments: res.data})
+  })
+  .catch((error) => {
+    console.log(error)
+  })
+}
+
+onsubmitTheStateToPosted = ()=>{
+var x=localStorage.getItem('usertoken');
+var user =  jwt_decode(x)
+console.log(this.state.id)
+console.log(user.user._id)
+console.log(this.state.comment)
+axios.post("http://localhost:7000/api/r-comment/"+this.state.id+"/"+user.user._id,this.state)
+.then(res => console.log(res))
+.catch(err => console.log(err))
+console.log("posted")
+}
+
+changeTheStateForform = (e)=>{
+console.log("inside add comment")
+this.setState({
+[e.target.name] : e.target.value
+})
+console.log("changeTheStateForform!!")
+}
 
     //Booking
     onsubmitTheStateToBook = ()=>{ 
@@ -223,9 +252,8 @@ return(
 );}
 
 renderNormal() {
-    const AllComment=(this.state.comment).map((item, index) => {
-    return <li key={index}>{this.state.comment[item]}</li>
-    })
+  let comments =   this.state.comments ? this.state.comments.map((item, index) => {
+    return <li key={index}>{item.comment}</li> }) : "www"
     
 
     // console.log(this.state.rate);
@@ -280,7 +308,7 @@ renderNormal() {
             <div className="card-body">
               <h1 className="text-white m-0">What our customers says about this tour guy</h1>
               <ul>
-              {AllComment}
+              {comments} 
               </ul>
               <Form>
               <FormGroup>

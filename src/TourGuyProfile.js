@@ -21,12 +21,38 @@ class TourGuyProfile  extends Component {
       address:"",
       img:"",
       price:"",
-      AboutMe:"",    
-      comments:null,  
-      
-      id:this.props.match.params.id
+      AboutMe:"",
+      comment: [] ,
+      id:this.props.match.params.id,
+      startDate: new Date(),
+      editing:false, 
+      save:false,
+      x:localStorage.getItem('usertoken'),
+     user:""
     }
+    this.edit = this.edit.bind(this);
+    this.save = this.save.bind(this);
   }
+ //helper functions that change state
+ edit()
+ {
+   this.setState({editing:true});
+   alert("now editing");
+ }
+ save()
+ {
+   this.setState({editing:false});
+   //call the method below to update and tarnsfer the data to the back-end  
+   this.onsubmitTheStateToEdit()
+   //juts for testing 
+   alert("now saving value ");
+ }
+
+changeTheStateForform = (e)=>{
+ this.setState({
+   [e.target.name] : e.target.value
+ })
+}
 
   componentDidMount() {
     axios.get(`http://localhost:7000/api/t-user/`+this.props.match.params.id)
