@@ -4,9 +4,6 @@ import CityList from './CityList'
 import axios from 'axios'
 
 
-
-
-
 class Home extends Component{
 
 
@@ -34,7 +31,6 @@ class Home extends Component{
 
         <div className='ContainerHomeCity'>
         <CityList/>
-
         </div>      
 
       </div>

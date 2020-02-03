@@ -13,6 +13,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 
 class TourGuyProfile  extends Component {
+  
   constructor(props){
     super(props);
     this.state={
@@ -26,12 +27,15 @@ class TourGuyProfile  extends Component {
       price:"",
       AboutMe:"",
       startDate: new Date(),
-      id:this.props.match.params.id
+      id:this.props.match.params.id,
+      x:localStorage.getItem('usertoken'),
+      user:""
     }
   }
 
   componentDidMount() {
-{/* <Booking></Booking> */}
+    this.setState({user: jwt_decode(this.state.x)})
+
     axios.get(`http://localhost:7000/api/t-user/`+this.props.match.params.id)
       .then(response => {
         //console.log(response);
@@ -46,18 +50,42 @@ class TourGuyProfile  extends Component {
       });
   }
 
-  onsubmitTheStateToBook = ()=>{
-    var datetoB=this.state.startDate.toDateString();
-    var x=localStorage.getItem('usertoken');
-    var user =  jwt_decode(x)
-    //we need to pass this for r-booking
-    //console.log(datetoB)
-    axios.post("http://localhost:7000/api/r-booking/"+this.state.id+"/"+user.user._id+"/"+datetoB,this.state)
-    .then(
-      (res) =>{ 
-        console.log(res)
-      })
-    .catch(err => console.log(err))
+  onsubmitTheStateToBook = ()=>{ 
+    if (this.state.startDate==null){
+      alert("please select date")
+    }
+    else{
+      // console.log(this.state.user.user._id);
+      var datetoB=this.state.startDate.toDateString();
+      axios.post("http://localhost:7000/api/r-booking/"+this.state.id+"/"+this.state.user.user._id+"/"+datetoB,this.state)
+      .then(
+        (res) =>{ 
+          console.log(res)
+        })
+      .catch(err => console.log(err))
+    } 
+  }
+
+  onsubmitBook = ()=>{ 
+    console.log(this.state.user.user.tourType)
+    if(this.state.user.user.tourType==="regUser"){
+        axios.get(`http://localhost:7000/api/r-booking/`+this.state.user.user._id)
+        .then(response => {
+          console.log(response);
+            
+        });
+    }
+    //tourGuy
+    else if(this.state.user.user.tourType==="tourUser"){
+        axios.get(`http://localhost:7000/api/t-booking/`+this.state.user.user._id)
+        .then(response => {
+          console.log(response);
+        });
+    }
+    //no user
+    else{
+        console.log("you should login");
+    }
   }
 
   showRate(e){
@@ -109,13 +137,13 @@ handleChange = date => {
               <p>{this.state.AboutMe}</p>
               <Rater total={5} rating={this.state.rate/this.state.raters} style={{cursor:'pointer'}} onRate={(rating)=>{this.setState((prev)=>({raters: prev.raters +1, rate: rating.rating + prev.rate}));}} /> 
                        {this.showRate()}
-                       
-
-              <br/><DatePicker
+        <br/><DatePicker
         selected={this.state.startDate}
-        onChange={this.handleChange}
-      />
+        onChange={this.handleChange}/>
+        
               <div><Button onClick ={this.onsubmitTheStateToBook}  size="sm" > Book </Button></div>
+              <div><Button onClick ={this.onsubmitBook}  size="sm" > all Book </Button></div>
+
             </div>
             {/* /.col-md-4 */}
           </div>
