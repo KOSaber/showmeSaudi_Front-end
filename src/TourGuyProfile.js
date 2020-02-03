@@ -23,11 +23,10 @@ class TourGuyProfile  extends Component {
       raters: 0,
       firstName:"",
       lastName: "",
-      address:"",
-      img:"",
+      city:"",
+      image:"",
       price:"",
       AboutMe:"",
-
       comment: [] ,
       id:this.props.match.params.id,
       startDate: new Date(),
@@ -68,8 +67,8 @@ changeTheStateForform = (e)=>{
           this.setState({firstName: response.data.firstName})
           this.setState({lastName: response.data.lastName} )
           this.setState({address: response.data.address})
-          this.setState({img: response.data.img} )
-          this.setState({rate: response.data.rate} )
+          this.setState({city: response.data.city})
+          this.setState({image: response.data.image} ) 
           this.setState({price: response.data.price} )
           this.setState({AboutMe: response.data.AboutMe} )
           this.setState({id: response.data._id} )
@@ -105,17 +104,20 @@ changeTheStateForform = (e)=>{
     console.log("changeTheStateForform!!")
   }
 
-  onsubmitTheStateToBook = ()=>{
-    var datetoB=this.state.startDate.toDateString();
-    var x=localStorage.getItem('usertoken');
-    var user =  jwt_decode(x)
-    //we need to pass this for r-booking
-    axios.post("http://localhost:7000/api/r-booking/"+this.state.id+"/"+user.user._id+"/"+datetoB,this.state)
-    .then(
-      (res) =>{ 
-        console.log(res)
-      })
-    .catch(err => console.log(err))
+  onsubmitTheStateToBook = ()=>{ 
+    if (this.state.startDate==null){
+      alert("please select date")
+    }
+    else{
+      // console.log(this.state.user.user._id);
+      var datetoB=this.state.startDate.toDateString();
+      axios.post("http://localhost:7000/api/r-booking/"+this.state.id+"/"+this.state.user.user._id+"/"+datetoB,this.state)
+      .then(
+        (res) =>{ 
+          console.log(res)
+        })
+      .catch(err => console.log(err))
+    } 
   }
 
 
@@ -161,8 +163,7 @@ changeTheStateForform = (e)=>{
           {/* Heading Row */}
           <div className="row align-items-center my-5">
             <div className="col-lg-7">
-              <img className="img-fluid rounded mb-4 mb-lg-0" src={this.state.img} alt="" />
-            </div>
+            <img className="img-fluid rounded mb-4 mb-lg-0" src={this.state.image} alt="" />            </div>
             {/* /.col-lg-8 */}
             <div className="col-lg-5">
               <h1 className="font-weight-light">{this.state.firstName+" "+this.state.lastName}</h1>

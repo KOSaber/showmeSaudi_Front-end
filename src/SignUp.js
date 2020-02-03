@@ -91,6 +91,7 @@ class SignUp extends Component {
         storage.ref('images').child(image.name).getDownloadURL().then(url => {
             console.log(url);
             this.setState({ image: url});
+            this.setState({ url: url});
         })
     });
   }
@@ -209,8 +210,6 @@ class SignUp extends Component {
 
       <Col>
         <FormGroup tag="fieldset">
-        <Label>User Type : </Label>
-          <CustomInput type="switch" id="exampleCustomSwitch2" name="tourType" label="Tour" onChange={(e)=>this.handleChange(e)} />
           <div style={style}>
       <progress value={this.state.progress} max="100"/>
       <br/>

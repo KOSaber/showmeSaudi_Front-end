@@ -21,18 +21,18 @@ class Booking  extends Component {
         }
       }
     componentDidMount() {
-        console.log("x"+this.state.x)
+        // console.log("x"+this.state.x)
         this.setState({user: jwt_decode(this.state.x)})
     }
 
     onsubmitBook = ()=>{ 
-        console.log(this.state.user.user.tourType)
+        console.log(this.state.user.user.firstName+" "+this.state.user.user.lastName)
         if(this.state.user.user.tourType==="regUser"){
             axios.get(`http://localhost:7000/api/r-booking/`+this.state.user.user._id)
             .then(response => {
               console.log(response);
               for(let i in response.data){
-                console.log("i am in for")
+                // console.log("i am in for")
                 this.setState({tourGuy: this.state.tourGuy.concat(response.data[i].tourGuy)})
                  this.setState({date: this.state.date.concat(response.data[i].date)}) 
             }
@@ -44,7 +44,7 @@ class Booking  extends Component {
             .then(response => {
               console.log(response);
               for(let i in response.data){
-                console.log("i am in for2")
+                // console.log("i am in for2")
                  this.setState({regUser: this.state.regUser.concat(response.data[i].regUser)} )
                   this.setState({date: this.state.date.concat(response.data[i].date)})           
             }
@@ -56,8 +56,7 @@ class Booking  extends Component {
         }
       }
     render() {
-
-        
+      // if()
         return(
             <div>
                 <br></br>
@@ -84,7 +83,7 @@ class Booking  extends Component {
                 <br></br>
               </div>
               <div className="row row-cols-3 row-cols-md-2">
-                    { this.state.tourGuy.map((n, index) => (
+                    { this.state.date.map((n, index) => (
                         <div className="col mb-4">
                         <div >
                         <p>{this.state.tourGuy[index]}</p>

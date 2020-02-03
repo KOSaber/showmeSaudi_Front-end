@@ -14,8 +14,8 @@ class TourGuys extends Component {
         this.state={ 
         firstName:[],
         lastName:[],
-        address:[],
-        img:[],
+        cityShow:[],
+        image:[],
         rate:[],
         price:[],
         id:[],
@@ -33,8 +33,8 @@ class TourGuys extends Component {
           for(let i in res.data){
               this.setState({firstName: this.state.firstName.concat(res.data[i].firstName)})
               this.setState({lastName: this.state.lastName.concat(res.data[i].lastName)} )
-              this.setState({address: this.state.address.concat(res.data[i].address)})
-              this.setState({img: this.state.img.concat(res.data[i].img)} )
+              this.setState({cityShow: this.state.cityShow.concat(res.data[i].city)})
+              this.setState({image: this.state.image.concat(res.data[i].image)} )
               this.setState({rate: this.state.rate.concat(res.data[i].rate)} )
               this.setState({price: this.state.price.concat(res.data[i].price)} )
               this.setState({id: this.state.id.concat(res.data[i]._id)} )
@@ -55,8 +55,8 @@ class TourGuys extends Component {
             for(let i in res.data){
                 this.setState({firstName: this.state.firstName.concat(res.data[i].firstName)})
                 this.setState({lastName: this.state.lastName.concat(res.data[i].lastName)} )
-                this.setState({address: this.state.address.concat(res.data[i].address)})
-                this.setState({img: this.state.img.concat(res.data[i].img)} )
+                this.setState({cityShow: this.state.cityShow.concat(res.data[i].city)})
+                this.setState({image: this.state.image.concat(res.data[i].image)} )
                 this.setState({rate: this.state.rate.concat(res.data[i].rate)} )
                 this.setState({price: this.state.price.concat(res.data[i].price)} )
                 this.setState({id: this.state.id.concat(res.data[i]._id)} )
@@ -125,14 +125,11 @@ class TourGuys extends Component {
                     <div>
                     <Card style={{ width: '15rem', margin: '2px', marginBottom: '30px' }} className="cardHov">
                     {/* Add onClick event handler to the name and an image of the place */}
-                    <Card.Img variant="top" src={this.state.img[index]} width="250" height="250" />
-                    <Card.Body>
+                    <Card.Img variant="top" src={this.state.image[index]} width="250" height="250" />                    <Card.Body>
                     {/* {item.city} */}
                     <span></span>
                     <Link to={"/TourGuyProfile/"+ this.state.id[index]}>{this.state.firstName[index]+" "+this.state.lastName[index]}</Link>
-                    <Card.Body>{this.state.address[index]}</Card.Body>
-                    <Card.Body>{this.state.price[index]}<img src={'https://pbs.twimg.com/media/EL4M2uIXsAAkx-f.png'} width="40" height="30" />Per 1 hour</Card.Body>
-                    <Card.Body>{this.state.rate[index]}</Card.Body>
+                    <Card.Body>{this.state.cityShow[index]}</Card.Body>                    <Card.Body>{this.state.rate[index]}</Card.Body>
                      {/* <Rater >{this.state.rate[index]}</Rater>total={5} rating={3} interactive={false} style={{cursor:'pointer'}} /> */}
                     </Card.Body>
                 </Card>
