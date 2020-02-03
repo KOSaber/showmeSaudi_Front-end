@@ -4,21 +4,26 @@ import {
   NavbarBrand,
   Container,
 } from "reactstrap";
-import "../src/App.css";
+import "../App.css";
 import {
   BrowserRouter as Router,
   Route,
   Link
 } from 'react-router-dom';
-import Home from './Home'
-import Packages from './Packages'
-import Contact from './Contact'
-import TourGuys from './TourGuys'
-import SignIn from './SignIn'
-import About from './About'
-import SignUp from './SignUp'
-import TourGuyProfile from './TourGuyProfile'
-import Comment from './Comment'
+
+import Home from '../containers/Home'
+import Packages from '../containers/Packages'
+import Contact from '../containers/Contact'
+import TourGuys from '../containers/TourGuys'
+import SignIn from '../Register/SignIn'
+import About from '../containers/About'
+import SignUp from '../Register/SignUp'
+import TourGuyProfile from '../containers/TourGuyProfile'
+import Comment from '../components/Footer'
+import EditRUserPrpfile from '../Register/EditRUserPrpfile'
+import jwt_decode from 'jwt-decode'
+
+
 class NavbarMain extends React.Component {
   constructor(props) {
     super(props);
@@ -34,6 +39,10 @@ class NavbarMain extends React.Component {
       isOpen: !this.state.isOpen
     });
   }
+  logout() {
+    localStorage.clear();
+    window.location.href = '/';
+}
   render() {
     return (
       <Router>
@@ -54,6 +63,8 @@ class NavbarMain extends React.Component {
           <NavbarBrand> <Link to="/SignIn" className="NavLink">Sign In</Link> </NavbarBrand>
           <NavbarBrand> <Link to="/About" className="NavLink">About Us</Link> </NavbarBrand>
           <NavbarBrand> <Link to="/contact" className="NavLink">Contact</Link> </NavbarBrand>
+          <NavbarBrand> <Link to="/EditRUserPrpfile" className="NavLink">Edit Prpfile</Link> </NavbarBrand>
+          <NavbarBrand> <Link to="/" className="NavLink">Sign Out</Link> </NavbarBrand>
         </Container>
         </Navbar>
         <div>
@@ -67,6 +78,7 @@ class NavbarMain extends React.Component {
         <Route path="/TourGuyProfile/:id" component={TourGuyProfile} />
         <Route path="/Comment" component={Comment} />
         <Route exact path="/TourGuys/:city" component={TourGuys} />
+        {/* <Route path="/EditRUserPrpfile" component={EditRUserPrpfile} /> */}
 
         </div>
       </Router>  

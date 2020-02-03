@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
-import { MDBCol, MDBFormInline, MDBBtn,MDBInput,MDBIcon } from "mdbreact";
 import CityList from './CityList' 
-import axios from 'axios'
 
 
 
 
 
 class Home extends Component{
-
 
 
   render() {

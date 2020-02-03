@@ -1,5 +1,6 @@
-import guide from './DB' //Import the file where the data is stored.
+import guide from '../DB' //Import the file where the data is stored.
 import React, { Component } from 'react';
+import SignIn from './SignIn'
 import TourForm from './TourForm'
 import {
   Container,CustomInput, Col,Row, Form,FormText,
@@ -13,20 +14,23 @@ import {
 import {
     Link
    } from 'react-router-dom';
-import './App.css';
+import '../App.css';
 import 'react-phone-number-input/style.css';
 import ReactPhoneInput from "react-phone-input-2";
 import axios from 'axios'
-import { Right } from 'react-bootstrap/lib/Media';
-import FileUpload from './FileUpload';
+// import { Right } from 'react-bootstrap/lib/Media';
+import FileUpload from '../FileUpload';
 
 
 class SignUp extends Component {
     state={
         moreInfo:"",
         status: false,
+        send: false,
+        userDate:[],
         phone: "",
-        api:"http://localhost:7000/api/newRuser"
+        api:"http://localhost:7000/api/newRuser",
+      send:false
     }
     showInfo(e){
         // e.preventDefault()
@@ -61,11 +65,20 @@ class SignUp extends Component {
       }
       onsubmitTheStateToPosted = ()=>{
         axios.post( this.state.api,this.state)
-        .then(res => console.log(res))
+        .then(res => {
+          console.log(res);
+          this.setState({send:true})
+        })
+
         .catch(err => console.log(err))
       }
   render() {
     console.log(this.state)
+
+
+    if(!this.state.send)
+    {
+
   return (
     <div >
       <br/><br/><br/><br/><br/>
@@ -88,7 +101,7 @@ class SignUp extends Component {
       <Row>
       <Col>
       <FormGroup className="col-md-10">
-        <Label for="Phone Number">Phone Number : </Label>
+        <Label for="Phone Number">Phone Number: </Label>
         {/* <Input type="tel" name="Phone" id="Phone" pattern="[+]{1}[0-9]{11,14}" placeholder="+966 " /> */}
         {/* const [value, setValue] = useState()value={this.props.value} onChange={this.props.onChange} */}
         {/* <PhoneInput placeholder="Enter phone number" value={this.state.value} onChange={(e)=>this.setValue(e)}/> */}
@@ -120,7 +133,6 @@ class SignUp extends Component {
 
       <Row>
       <Col>
-
       <FormGroup className="col-md-10">
           <Label for="exampleSelectMulti">City</Label>
           <Input type="select" name="city" id="exampleSelect" onChange={this.changeTheStateForform}>
@@ -138,14 +150,9 @@ class SignUp extends Component {
       </Col>  
     
       <Col>
-
       <FormGroup className="col-md-10">
           <Label for="exampleFile">Personal Picture</Label>
-          {/* <Input type="file" name="file" id="exampleFile" /> */}
           <CustomInput method="post" action="/upload" enctype="multipart/form-data" type="file" name="img" id="exampleFile" label="Please choose your Personal photo" onChange={this.changeTheStateForform}  />
-            {/* <FormText color="muted">
-                Please choose your Personal photo ...
-          </FormText> */}
       </FormGroup>
       </Col>
 
@@ -163,11 +170,12 @@ class SignUp extends Component {
             </FormGroup>
 
       <Col>
-        <FormGroup tag="fieldset">
+      <br/>
+        <FormGroup tag="fieldset" >
         <Label>User Type : </Label>
           <CustomInput type="switch" id="exampleCustomSwitch2" name="tourType" label="Tour" onChange={(e)=>this.handleChange(e)} />
           {this.state.moreInfo}
-          <FileUpload method="post" action="/upload" enctype="multipart/form-data" type="file" name="img" id="exampleFile" label="Please choose your Personal photo" onChange={this.changeTheStateForform}/>
+          {/* <FileUpload  className="col-md-4" method="post" action="/upload" enctype="multipart/form-data" type="file" name="img" id="exampleFile" label="Please choose your Personal photo" onChange={this.changeTheStateForform}/> */}
  
         {/* <FormGroup check>
           <Label check>
@@ -185,11 +193,17 @@ class SignUp extends Component {
       </FormGroup>
       </Col>
       <Col>
-      <Button onClick ={this.onsubmitTheStateToPosted} > Submit</Button>
+      <Button onClick ={this.onsubmitTheStateToPosted} > Submit {console.log(this.state.send)}</Button>
       <Link to="/SignIn"><Button className='log'>Sign In</Button></Link>
       </Col>
     </Form>
     </div>
   );
+      }else {
+        return(
+        <SignIn />
+        )
+      }
 }}
+
 export default SignUp;
