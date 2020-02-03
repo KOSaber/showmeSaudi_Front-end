@@ -22,8 +22,9 @@ class TourGuyProfile  extends Component {
       img:"",
       rate:"",
       price:"",
-      AboutMe:"",      
-      comment: [] ,
+      AboutMe:"",    
+      comments:null,  
+      
       id:this.props.match.params.id
     }
   }
@@ -41,31 +42,49 @@ class TourGuyProfile  extends Component {
           this.setState({AboutMe: response.data.AboutMe} )
           this.setState({id: response.data._id} )
       });
+////////////////////////////// Comment api
+    axios.get(`http://localhost:7000/api/t-comment/`+this.props.match.params.id) 
+          .then(res => {
+            this.setState({comments: res.data})
+          })
+          .catch((error) => {
+            console.log(error)
+          })
   }
 
-  addComment(c){
-    this.setState({comment: this.state.comment.push[c]} )
+  onsubmitTheStateToPosted = ()=>{
+    var x=localStorage.getItem('usertoken');
+    var user =  jwt_decode(x)
+    console.log(this.state.id)
+    console.log(user.user._id)
+    console.log(this.state.comment)
+    axios.post("http://localhost:7000/api/r-comment/"+this.state.id+"/"+user.user._id,this.state)
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+    console.log("posted")
+  }
 
+  changeTheStateForform = (e)=>{
+    console.log("inside add comment")
+    this.setState({
+      [e.target.name] : e.target.value
+    })
+    console.log("changeTheStateForform!!")
   }
 
   onsubmitTheStateToBook = ()=>{
-    axios.post("http://localhost:7000/api/r-booking/"+this.state.id,this.state)
+    var datetoB=this.state.startDate.toDateString();
+    var x=localStorage.getItem('usertoken');
+    var user =  jwt_decode(x)
+    //we need to pass this for r-booking
+    axios.post("http://localhost:7000/api/r-booking/"+this.state.id+"/"+user.user._id+"/"+datetoB,this.state)
     .then(
       (res) =>{ 
         console.log(res)
-    var user =  jwt_decode(res.data.token)
-    console.log(user)
-
-      if(user.user.tourType==="regUser"){
-        this.props.history.push("./");
-      }
-      else{
-        console.log("Tour user");        
-        this.props.history.push("./TourGuyProfile")
-      }
       })
     .catch(err => console.log(err))
   }
+
 
   showRate(e){
   if(this.state.rate/this.state.raters > 0)
@@ -73,9 +92,10 @@ class TourGuyProfile  extends Component {
 }
 
   render() {
-    const AllComment=(this.state.comment).map((item, index) => {
-    return <li key={index}>{this.state.comment[item]}</li>
-    })
+
+    let comments =   this.state.comments ? this.state.comments.map((item, index) => {
+    return <li key={index}>{item.comment}</li> }) : "www"
+
 
     // console.log(this.state.rate);
     //   console.log(this.state.raters);
@@ -123,30 +143,27 @@ class TourGuyProfile  extends Component {
           <div className="card text-white color my-5 py-4 text-center">
             <div className="card-body">
               <h1 className="text-white m-0">What our customers says about this tour guy</h1>
-              <ul>
-              {AllComment}
+              <ul> 
+               {comments} 
               </ul>
-              <Form>
-              <FormGroup>
-              <Label for="exampleText">Text Area</Label>
-              <Input type="textarea" name="text" id="exampleText" />
-              <Button onClick ={this.addComment} >Add comment<img src={'https://i.postimg.cc/3NQ9Fmr5/blog.png'} width="30" height="30"/></Button>
+              <Form className="SignUp" onSubmit ={this.onsubmitTheStateToPosted}>
+              <FormGroup >
+              <Input type="textarea" name="comment" id="exampleText" placeholder="Write your comment here" onChange={this.changeTheStateForform}/>
+              <Button onClick ={this.onsubmitTheStateToPosted}>Add comment<img src={'https://i.postimg.cc/3NQ9Fmr5/blog.png'} width="30" height="30"/></Button>
               </FormGroup>
               </Form>
             </div>
           </div>
           <Container >
             <Row className='Cont'>
-                  {/* render the list of city generated in the render method above */}
-                  {AllPackages}
+              {/* render the list of city generated in the render method above */}
+              {AllPackages}
             </Row>
         </Container>
-
         {/* /.container */}
       </div>
     </div>
   );}
-  
 };
 
 export default TourGuyProfile;

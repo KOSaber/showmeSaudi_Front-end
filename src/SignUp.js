@@ -1,5 +1,6 @@
 import guide from './DB' //Import the file where the data is stored.
 import React, { Component } from 'react';
+import SignIn from './SignIn'
 import TourForm from './TourForm'
 import {
   Container,CustomInput, Col,Row, Form,FormText,
@@ -21,7 +22,8 @@ class SignUp extends Component {
         moreInfo:"",
         status: false,
         phone: "",
-        api:"http://localhost:7000/api/newRuser"
+        api:"http://localhost:7000/api/newRuser",
+      send:false
     }
     showInfo(e){
         // e.preventDefault()
@@ -61,12 +63,17 @@ class SignUp extends Component {
       onsubmitTheStateToPosted = ()=>{
 
         axios.post( this.state.api,this.state)
-        .then(res => console.log(res))
+        .then(res => {
+          console.log(res);
+          this.setState({send:true})
+        })
         .catch(err => console.log(err))
       }
 
   render() {
     console.log(this.state)
+    if(!this.state.send)
+    {
   return (
     <div >
       <br/><br/><br/><br/><br/>
@@ -173,6 +180,11 @@ class SignUp extends Component {
     </Form>
     </div>
   );
+      }else {
+        return(
+        <SignIn />
+        )
+      }
 }}
 
 export default SignUp;
