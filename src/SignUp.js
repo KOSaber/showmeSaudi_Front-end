@@ -91,6 +91,7 @@ class SignUp extends Component {
         storage.ref('images').child(image.name).getDownloadURL().then(url => {
             console.log(url);
             this.setState({ image: url});
+            this.setState({ url: url});
         })
     });
   }
@@ -112,7 +113,6 @@ class SignUp extends Component {
       //send this to api
       onsubmitTheStateToPosted = ()=>{
         console.log("onsubmitTheStateToPosted");
-        // console.log(this.state ,this.state.api )
         axios.post( this.state.api,this.state)
         .then(res => console.log(res))
         .catch(err => console.log(err))
@@ -200,23 +200,7 @@ class SignUp extends Component {
       <Col>
 
       <FormGroup className="col-md-10">
-          <Label for="exampleFile">Personal Picture</Label>
-          {/* <Input type="file" name="file" id="exampleFile" /> */}
-          <CustomInput method="post" action="/upload" enctype="multipart/form-data" type="file" name="image" id="exampleFile" label="Please choose your Personal photo" onChange={this.changeTheStateForform}  />
-            {/* <FormText color="muted">
-                Please choose your Personal photo ...
-          </FormText> */}
-      </FormGroup>
-      </Col>
-
-      </Row> 
-
-
-      <Col>
-        <FormGroup tag="fieldset">
-        <Label>User Type : </Label>
-          <CustomInput type="switch" id="exampleCustomSwitch2" name="tourType" label="Tour" onChange={(e)=>this.handleChange(e)} />
-          <div style={style}>
+      {/* <div style={style}> */}
       <progress value={this.state.progress} max="100"/>
       <br/>
         <input type="file" name="image" onChange={(e)=>{
@@ -227,7 +211,18 @@ class SignUp extends Component {
         {/* <button onClick ={this.handleUpload} >Upload</button> */}
         <br/>
         <img src={this.state.url || 'http://via.placeholder.com/400x300'} alt="Uploaded images" height="300" width="400"/>
-      </div>          
+      {/* </div>  */}
+      </FormGroup>
+      </Col>
+
+      </Row> 
+
+
+      <Col>
+        <FormGroup tag="fieldset">
+        <Label>User Type : </Label>
+          <CustomInput type="switch" id="exampleCustomSwitch2" name="tourType" label="Tour" onChange={(e)=>this.handleChange(e)} />
+                   
           
       </FormGroup>
       </Col>
