@@ -2,7 +2,7 @@ import guide from '../DB' //Import the file where the data is stored.
 import React, { Component } from 'react';
 import SignIn from './SignIn'
 import {
-  Container,CustomInput, Col,Row, Form,FormText,
+  CustomInput, Col,Row, Form,
   FormGroup, Label, Input,
   Button
 } from 'reactstrap';
@@ -11,8 +11,7 @@ import {
    } from 'react-router-dom';
 import '../App.css';
 import 'react-phone-number-input/style.css';
-import PhoneInput from 'react-phone-number-input';
-import { render } from "react-dom";
+
 import ReactPhoneInput from "react-phone-input-2";
 import axios from 'axios'
 
