@@ -21,7 +21,7 @@ import SignUp from '../Register/SignUp'
 import TourGuyProfile from '../containers/TourGuyProfile'
 import Comment from '../components/Footer'
 import EditRUserPrpfile from '../Register/EditRUserPrpfile'
-
+import jwt_decode from 'jwt-decode'
 
 
 class NavbarMain extends React.Component {
@@ -39,6 +39,10 @@ class NavbarMain extends React.Component {
       isOpen: !this.state.isOpen
     });
   }
+  logout() {
+    localStorage.clear();
+    window.location.href = '/';
+}
   render() {
     return (
       <Router>
@@ -60,6 +64,7 @@ class NavbarMain extends React.Component {
           <NavbarBrand> <Link to="/About" className="NavLink">About Us</Link> </NavbarBrand>
           <NavbarBrand> <Link to="/contact" className="NavLink">Contact</Link> </NavbarBrand>
           <NavbarBrand> <Link to="/EditRUserPrpfile" className="NavLink">Edit Prpfile</Link> </NavbarBrand>
+          <NavbarBrand> <Link to="/" className="NavLink">Sign Out</Link> </NavbarBrand>
         </Container>
         </Navbar>
         <div>

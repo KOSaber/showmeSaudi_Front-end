@@ -65,35 +65,20 @@ class SignUp extends Component {
       }
       onsubmitTheStateToPosted = ()=>{
         axios.post( this.state.api,this.state)
-<<<<<<< HEAD:src/Register/SignUp.js
-        .then(res => 
-          {console.log(res)
-
-        this.setState({send:true})
-      
-      }
-      
-        
-    )
-        
-=======
         .then(res => {
           console.log(res);
           this.setState({send:true})
         })
->>>>>>> 71357c54826cf48fa26080b7c98932cf5ced8e91:src/SignUp.js
+
         .catch(err => console.log(err))
       }
   render() {
     console.log(this.state)
-<<<<<<< HEAD:src/Register/SignUp.js
+
 
     if(!this.state.send)
-{
-=======
-    if(!this.state.send)
     {
->>>>>>> 71357c54826cf48fa26080b7c98932cf5ced8e91:src/SignUp.js
+
   return (
     <div >
       <br/><br/><br/><br/><br/>
@@ -203,32 +188,11 @@ class SignUp extends Component {
     </Form>
     </div>
   );
-<<<<<<< HEAD:src/Register/SignUp.js
-      }
-      else{
-        return(
-          
-           // eslint-disable-next-line react/jsx-no-undef
-           
-           <SignIn />
-
-        
-       
-          
-        )
-      }
-}
-
-
-
-}
-=======
       }else {
         return(
         <SignIn />
         )
       }
 }}
->>>>>>> 71357c54826cf48fa26080b7c98932cf5ced8e91:src/SignUp.js
 
 export default SignUp;
