@@ -1,6 +1,7 @@
 import guide from '../DB' //Import the file where the data is stored.
 import React, { Component } from 'react';
 import SignIn from './SignIn'
+import TourForm from './TourForm'
 import {
   Container,CustomInput, Col,Row, Form,FormText,
   FormGroup, Label, Input,
@@ -8,9 +9,8 @@ import {
   InputGroupDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem,Nav,NavItem
+  DropdownItem
 } from 'reactstrap';
-import {Tab,Tabs} from 'react-bootstrap';
 import {
     Link
    } from 'react-router-dom';
@@ -24,28 +24,33 @@ import FileUpload from '../FileUpload';
 
 class SignUp extends Component {
     state={
+        moreInfo:"",
         status: false,
         send: false,
         userDate:[],
         phone: "",
-        api:"http://localhost:7000/api/newRuser"
+        api:"http://localhost:7000/api/newRuser",
+      send:false
     }
     showInfo(e){
         // e.preventDefault()
-        this.setState({api:"http://localhost:7000/api/newTuser" })
-    console.log(this.state.api)
+        this.setState({api:"http://localhost:7000/api/newTuser"//,moreInfo:<TourForm onChange={this.handleOnChange}/>
+      })
+    //console.log(this.state.api)
       }
     hideInfo(e){
         // e.preventDefault()
-        this.setState({api:"http://localhost:7000/api/newRuser"})
-        console.log(this.state.api)
+        this.setState({api:"http://localhost:7000/api/newRuser",moreInfo:''})
       }
     handleChange(e) {
         this.setState({status: !this.state.status})
-        if(!this.state.status){this.showInfo()}
-        else {this.hideInfo()}
+        if(!this.state.status){
+        this.showInfo(e);}else {this.hideInfo(e)}
       }
-    
+    //   setValue = (event) => {
+    //     // event.preventDefault();
+    //     this.setState({value: event.target.value })
+    // }
     handleOnChange = value => {
         console.log(value);
         this.setState({ phone: value }, () => {
@@ -60,6 +65,7 @@ class SignUp extends Component {
       }
       onsubmitTheStateToPosted = ()=>{
         axios.post( this.state.api,this.state)
+<<<<<<< HEAD:src/Register/SignUp.js
         .then(res => 
           {console.log(res)
 
@@ -70,21 +76,29 @@ class SignUp extends Component {
         
     )
         
+=======
+        .then(res => {
+          console.log(res);
+          this.setState({send:true})
+        })
+>>>>>>> 71357c54826cf48fa26080b7c98932cf5ced8e91:src/SignUp.js
         .catch(err => console.log(err))
       }
   render() {
-    // console.log(this.state)
+    console.log(this.state)
+<<<<<<< HEAD:src/Register/SignUp.js
 
     if(!this.state.send)
 {
+=======
+    if(!this.state.send)
+    {
+>>>>>>> 71357c54826cf48fa26080b7c98932cf5ced8e91:src/SignUp.js
   return (
     <div >
       <br/><br/><br/><br/><br/>
       <h2 className="title">Sign Up</h2>
-      <br/><br/>
-      <Tabs fill variant="tabs" defaultActiveKey="R" id="Tab" onClick={(e)=>this.handleChange(e)} >
-  <Tab eventKey="T" title="Tour User" >
-  <Form className="SignUp" onSubmit ={this.onsubmitTheStateToPosted}> 
+     <Form className="SignUp" onSubmit ={this.onsubmitTheStateToPosted}> 
     <Row>
       <Col>
         <FormGroup className="col-md-10">
@@ -103,6 +117,9 @@ class SignUp extends Component {
       <Col>
       <FormGroup className="col-md-10">
         <Label for="Phone Number">Phone Number: </Label>
+        {/* <Input type="tel" name="Phone" id="Phone" pattern="[+]{1}[0-9]{11,14}" placeholder="+966 " /> */}
+        {/* const [value, setValue] = useState()value={this.props.value} onChange={this.props.onChange} */}
+        {/* <PhoneInput placeholder="Enter phone number" value={this.state.value} onChange={(e)=>this.setValue(e)}/> */}
         <ReactPhoneInput inputExtraProps={{name: "phone",required: true,autoFocus: true}}
           defaultCountry={"sa"} value={this.state.phone} placeholder="+966" onChange={this.handleOnChange}/>
       </FormGroup>
@@ -157,79 +174,61 @@ class SignUp extends Component {
       </Row> 
 
       <Col>
-      <Button onClick ={this.onsubmitTheStateToPosted} > Submit </Button>
+      <br/>
+        <FormGroup tag="fieldset" >
+        <Label>User Type : </Label>
+          <CustomInput type="switch" id="exampleCustomSwitch2" name="tourType" label="Tour" onChange={(e)=>this.handleChange(e)} />
+          {this.state.moreInfo}
+          {/* <FileUpload  className="col-md-4" method="post" action="/upload" enctype="multipart/form-data" type="file" name="img" id="exampleFile" label="Please choose your Personal photo" onChange={this.changeTheStateForform}/> */}
+ 
+        {/* <FormGroup check>
+          <Label check>
+            <Input type="radio" name="radio1" onClick={(e)=> this.hideInfo(e)}/>{' '}
+            Regular user
+          </Label>
+        </FormGroup>
+        <FormGroup check>
+          <Label check>
+            <Input type="radio" name="radio1" onClick={(e)=> this.showInfo(e)}/>{' '}
+            Tour
+            {this.state.moreInfo}
+          </Label>
+        </FormGroup> */}
+      </FormGroup>
+      </Col>
+      <Col>
+      <Button onClick ={this.onsubmitTheStateToPosted} > Submit {console.log(this.state.send)}</Button>
       <Link to="/SignIn"><Button className='log'>Sign In</Button></Link>
       </Col>
     </Form>
-  </Tab>
-  <Tab eventKey="R" title="Regular User" >
-  <Form className="SignUp" onSubmit ={this.onsubmitTheStateToPosted}> 
-    <Row>
-      <Col>
-        <FormGroup className="col-md-10">
-            <Label for="First Name">First Name :</Label>
-            <Input type="text" name="firstName" id="First Name" placeholder="Enter your First Name"  onChange={this.changeTheStateForform}/>
-        </FormGroup>
-      </Col>
-      <Col>
-        <FormGroup className="col-md-10">
-            <Label for="Last Name">Last Name :</Label>
-            <Input type="text" name="lastName" id="Last Name" placeholder="Enter your Last Name" onChange={this.changeTheStateForform}/>
-        </FormGroup>
-      </Col>
-      </Row>
-      <Row>
-      <Col>
-      <FormGroup className="col-md-10">
-        <Label for="Phone Number">Phone Number: </Label>
-        <ReactPhoneInput inputExtraProps={{name: "phone",required: true,autoFocus: true}}
-          defaultCountry={"sa"} value={this.state.phone} placeholder="+966" onChange={this.handleOnChange}/>
-      </FormGroup>
-      </Col>
-      <Col>
-      <FormGroup className="col-md-10">
-        <Label for="exampleEmail">Email :</Label>
-        <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder"  onChange={this.changeTheStateForform}/>
-      </FormGroup>
-      </Col>
-      </Row>
-      <Row>
-      <Col>
-      <FormGroup className="col-md-10">
-        <Label for="examplePassword">Password :</Label>
-        <Input type="password" name="password" id="examplePassword" placeholder="password placeholder" onChange={this.changeTheStateForform} />
-      </FormGroup>
-      </Col>
-      <Col>
-      <FormGroup className="col-md-10">
-        <Label for="examplePassword">Confirm Password :</Label>
-        <Input type="password" name="password_confirmation" id="password_confirmation" onChange={this.changeTheStateForform}/>
-      </FormGroup>
-      </Col>
-      </Row>
-      <FormGroup>
-      <Col>
-      <Button onClick ={this.onsubmitTheStateToPosted} > Submit </Button>
-      <Link to="/SignIn"><Button className='log'>Sign In</Button></Link>
-      </Col>
-      </FormGroup>
-      </Form> 
-  </Tab>
-</Tabs>
- 
     </div>
   );
+<<<<<<< HEAD:src/Register/SignUp.js
       }
       else{
-        return(         
-           // eslint-disable-next-line react/jsx-no-undef         
-           <SignIn />  
+        return(
+          
+           // eslint-disable-next-line react/jsx-no-undef
+           
+           <SignIn />
+
+        
+       
+          
         )
       }
 }
 
+
+
 }
+=======
+      }else {
+        return(
+        <SignIn />
+        )
+      }
+}}
+>>>>>>> 71357c54826cf48fa26080b7c98932cf5ced8e91:src/SignUp.js
 
 export default SignUp;
-
-

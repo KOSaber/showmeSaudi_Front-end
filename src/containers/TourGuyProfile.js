@@ -25,7 +25,6 @@ class TourGuyProfile  extends Component {
       lastName: "",
       address:"",
       img:"",
-      rate:"",
       price:"",
       AboutMe:"",
       comment: [] ,
@@ -103,6 +102,16 @@ onsubmitTheStateToEdit = ()=>{
 )
   .catch(err => console.log(err))
 }
+// // EDIT Rating 
+// ratingEdit = ()=>{
+//   axios.put("http://localhost:7000/api/t-user_edit/"+this.state.id, this.state)
+//   .then((res) =>
+//   {
+//     console.log("what data do u have ", res)
+//   } 
+// )
+//   .catch(err => console.log(err))
+// }
 
   
   handleChange = date => {
