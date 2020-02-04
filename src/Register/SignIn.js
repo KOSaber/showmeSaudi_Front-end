@@ -54,12 +54,13 @@ handleChange(e) {
     localStorage.setItem('usertoken' , res.data.token)
     var user =  jwt_decode(res.data.token)
     console.log(user)
-
-      if(user.user.tourType==="regUser"){
+    //for log
+    this.props.showLogOut()
+      if(user.user.tourType==="regUser"){ 
         this.props.history.push("./");
       }
       else{
-        console.log("Tour user");        
+        console.log("Tour user");      
         this.props.history.push("./TourGuyProfile/" + user.user._id)
       }
       })
