@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
+import { Card } from 'react-bootstrap/';
 import guide from './DB' //Import the file where the data is stored.
+import Booking from './Booking';
+import Calendar from './Calendar';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import {
   Link
 } from 'react-router-dom';
@@ -18,8 +23,8 @@ class TourGuyProfile  extends Component {
       raters: 0,
       firstName:"",
       lastName: "",
-      address:"",
-      img:"",
+      city:"",
+      image:"",
       price:"",
       AboutMe:"",
       comment: [] ,
@@ -33,6 +38,7 @@ class TourGuyProfile  extends Component {
     this.edit = this.edit.bind(this);
     this.save = this.save.bind(this);
   }
+
  //helper functions that change state
  edit()
  {
@@ -61,8 +67,8 @@ changeTheStateForform = (e)=>{
           this.setState({firstName: response.data.firstName})
           this.setState({lastName: response.data.lastName} )
           this.setState({address: response.data.address})
-          this.setState({img: response.data.img} )
-          this.setState({rate: response.data.rate} )
+          this.setState({city: response.data.city})
+          this.setState({image: response.data.image} ) 
           this.setState({price: response.data.price} )
           this.setState({AboutMe: response.data.AboutMe} )
           this.setState({id: response.data._id} )
@@ -76,6 +82,7 @@ changeTheStateForform = (e)=>{
             console.log(error)
           })
   }
+
 
   onsubmitTheStateToPosted = ()=>{
     var x=localStorage.getItem('usertoken');
@@ -97,17 +104,20 @@ changeTheStateForform = (e)=>{
     console.log("changeTheStateForform!!")
   }
 
-  onsubmitTheStateToBook = ()=>{
-    var datetoB=this.state.startDate.toDateString();
-    var x=localStorage.getItem('usertoken');
-    var user =  jwt_decode(x)
-    //we need to pass this for r-booking
-    axios.post("http://localhost:7000/api/r-booking/"+this.state.id+"/"+user.user._id+"/"+datetoB,this.state)
-    .then(
-      (res) =>{ 
-        console.log(res)
-      })
-    .catch(err => console.log(err))
+  onsubmitTheStateToBook = ()=>{ 
+    if (this.state.startDate==null){
+      alert("please select date")
+    }
+    else{
+      // console.log(this.state.user.user._id);
+      var datetoB=this.state.startDate.toDateString();
+      axios.post("http://localhost:7000/api/r-booking/"+this.state.id+"/"+this.state.user.user._id+"/"+datetoB,this.state)
+      .then(
+        (res) =>{ 
+          console.log(res)
+        })
+      .catch(err => console.log(err))
+    } 
   }
 
 
@@ -118,6 +128,7 @@ changeTheStateForform = (e)=>{
 
   render() {
 
+
     let comments =   this.state.comments ? this.state.comments.map((item, index) => {
     return <li key={index}>{item.comment}</li> }) : "www"
 
@@ -125,6 +136,8 @@ changeTheStateForform = (e)=>{
     // console.log(this.state.rate);
     //   console.log(this.state.raters);
     const AllPackages=guide.map((item, index) => {
+
+          
       return <div key={index} className='Card'>
      <div className='ContainerHomeCity'>
          
@@ -150,16 +163,23 @@ changeTheStateForform = (e)=>{
           {/* Heading Row */}
           <div className="row align-items-center my-5">
             <div className="col-lg-7">
-              <img className="img-fluid rounded mb-4 mb-lg-0" src={this.state.img} alt="" />
-            </div>
+            <img className="img-fluid rounded mb-4 mb-lg-0" src={this.state.image} alt="" />            </div>
             {/* /.col-lg-8 */}
             <div className="col-lg-5">
               <h1 className="font-weight-light">{this.state.firstName+" "+this.state.lastName}</h1>
               <p>{this.state.AboutMe}</p>
               <Rater total={5} rating={this.state.rate/this.state.raters} style={{cursor:'pointer'}} onRate={(rating)=>{this.setState((prev)=>({raters: prev.raters +1, rate: rating.rating + prev.rate}));}} /> 
                        {this.showRate()}
+                       
 
-              <div><Button onClick ={this.onsubmitTheStateToBook} > Booking</Button></div>
+              <br/><DatePicker
+        selected={this.state.startDate}
+        onChange={this.handleChange}
+      />
+              <div><Button onClick ={this.onsubmitTheStateToBook}  > Book </Button></div>
+
+
+           
             </div>
             {/* /.col-md-4 */}
           </div>
@@ -168,6 +188,8 @@ changeTheStateForform = (e)=>{
           <div className="card text-white color my-5 py-4 text-center">
             <div className="card-body">
               <h1 className="text-white m-0">What our customers says about this tour guy</h1>
+            
+
               <ul> 
                {comments} 
               </ul>
